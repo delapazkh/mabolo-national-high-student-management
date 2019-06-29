@@ -7,7 +7,7 @@
     <div class="wrap-login100 p-t-85 p-b-20">
       <form class="login100-form validate-form">
         <span class="login100-form-title p-b-70">
-          Welcome
+          MNHS IMS
         </span>
         <span class="login100-form-avatar">
           <img src="images/mabolohs.jpg" alt="AVATAR">
