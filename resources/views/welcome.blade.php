@@ -1,5 +1,7 @@
 @extends('layout')
+
 @section('title', 'Mabolo National High School')
+
 @section('content')
 
 <div class="limiter">
@@ -24,9 +26,9 @@
         </div>
 
         <div class="container-login100-form-btn">
-          <button class="login100-form-btn">
+          <a href="/dashboard"class="login100-form-btn">
             Login
-          </button>
+          </a>
         </div>
 
         <ul class="login-more p-t-190">
