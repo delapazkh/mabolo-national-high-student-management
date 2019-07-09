@@ -67,7 +67,7 @@
 
     <!-- Custom scripts for all pages-->
     <!--===============================================================================================-->
-    	<!-- <script src="vendor/animsition/js/animsition.min.js"></script>
+    	<!-- <script src="vendor/animsition/js/animsition.min.js"></script> -->
     <!--===============================================================================================-->
     	<!-- <script src="vendor/bootstrap/js/popper.js"></script>
     	<script src="vendor/bootstrap/js/bootstrap.min.js"></script> -->
