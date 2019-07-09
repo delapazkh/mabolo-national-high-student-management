@@ -1,12 +1,20 @@
-@extends('layouts.mnhs')
+@extends('layouts.auth')
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center" style="margin:10% 0%">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
-
+                <div class="row justify-content-center" style="margin-top:15px">
+                  <div>
+                      <span class="login100-form-title">
+                        MNHS IMS
+                      </span>
+                      <span class="login100-form-avatar">
+                        <img src="images/mabolohs.jpg" alt="AVATAR">
+                      </span>
+                  </div>
+                </div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
