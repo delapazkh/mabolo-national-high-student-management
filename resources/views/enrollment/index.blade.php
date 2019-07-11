@@ -11,8 +11,8 @@
         <div class="card">
           <div class="card-header">
             <h5 class="card-category">
-              All Users List 
-              <a href="/users/create">
+              All students List 
+              <a href="/enrollment/create">
                 <i class="fas fa-plus-circle" style="color:green; cursor: pointer;"></i>
               </a>
             </h5>
@@ -44,7 +44,7 @@
                   @foreach($users as $user)
                     <tr>
                       <td>
-                        {{$user->id}}
+                        #{{$user->id}}
                       </td>
                       <td>
                         {{$user->name}}

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 
-class FormsController extends Controller
+class EnrollmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +14,8 @@ class FormsController extends Controller
      */
     public function index()
     {
-        return view('forms.index');
+        $users = User::all();
+        return view('enrollment.index', compact('users'));
     }
 
     /**
@@ -23,7 +25,7 @@ class FormsController extends Controller
      */
     public function create()
     {
-        //
+        return view('enrollment.create');
     }
 
     /**

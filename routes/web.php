@@ -14,7 +14,14 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/dashboard', 'HomeController@index')->name('home');
-Route::get('/users', 'HomeController@users')->name('users');
-Route::get('/roles', 'HomeController@roles')->name('roles');
-Route::get('/form', 'HomeController@form')->name('form');
+
+Route::get('/users', 'UsersController@index')->name('index');
+Route::get('/users/create', 'UsersController@create')->name('create');
+
+Route::get('/roles', 'RolesController@index')->name('index');
+Route::get('/roles/create', 'RolesController@create')->name('create');
+
+Route::get('/forms', 'FormsController@index')->name('index');
+
+Route::get('/enrollment', 'EnrollmentController@index')->name('index');
+Route::get('/enrollment/create', 'EnrollmentController@create')->name('create');

@@ -42,35 +42,41 @@
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
     -->
       <div class="logo">
-        <!-- <a href="http://www.creative-tim.com" class="simple-text logo-mini">
+        <!-- <a href="/" class="simple-text logo-mini">
           MNHS
         </a> -->
-        <a href="http://www.creative-tim.com" class="simple-text logo-normal">
+        <a href="/" class="simple-text logo-normal">
           MNHS
         </a>
       </div>
       <div class="sidebar-wrapper" id="sidebar-wrapper">
         <ul class="nav">
-          <li class="active ">
-            <a href="./dashboard.html">
+          <li class="{{ (Request::segment(1) == '') ? 'active' : '' }}">
+            <a href="/">
               <i class="now-ui-icons design_app"></i>
               <p>Dashboard</p>
             </a>
           </li>
-          <li>
-            <a href="./user.html">
+          <li class="{{ (Request::segment(1) == 'users') ? 'active' : '' }}">
+            <a href="/users">
               <i class="now-ui-icons users_single-02"></i>
               <p>Users</p>
             </a>
           </li>
-          <li>
-            <a href="./icons.html">
+          <li class="{{ (Request::segment(1) == 'roles') ? 'active' : '' }}">
+            <a href="/roles">
               <i class="now-ui-icons education_atom"></i>
               <p>Roles</p>
             </a>
           </li>
-          <li>
-            <a href="./tables.html">
+          <li class="{{ (Request::segment(1) == 'enrollment') ? 'active' : '' }}">
+            <a href="/enrollment">
+              <i class="fab fa-elementor"></i>
+              <p>Enrollment</p>
+            </a>
+          </li>
+          <li class="{{ (Request::segment(1) == 'forms') ? 'active' : '' }}">
+            <a href="/forms">
               <i class="now-ui-icons design_bullet-list-67"></i>
               <p>Forms</p>
             </a>
@@ -88,31 +94,104 @@
       </div>
     </div>
     <div class="main-panel" id="main-panel">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-transparent  bg-primary  navbar-absolute">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <div class="navbar-toggle">
+              <button type="button" class="navbar-toggler">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </button>
+            </div>
+            <a class="navbar-brand" href="#pablo">
+              {{ (Request::segment(1) == '/') ? 'Dashboard' : '' }}
+              {{ (Request::segment(1) == 'users') ? 'Users' : '' }}
+              {{ (Request::segment(1) == 'roles') ? 'Roles' : '' }}
+              {{ (Request::segment(1) == 'enrollment') ? 'Enrollment' : '' }}
+              {{ (Request::segment(1) == 'forms') ? 'Forms' : '' }}
+              
+          </a>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <form>
+              <div class="input-group no-border">
+                <input type="text" value="" class="form-control" placeholder="Search...">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <i class="now-ui-icons ui-1_zoom-bold"></i>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="#pablo">
+                  <i class="now-ui-icons media-2_sound-wave"></i>
+                  <p>
+                    <span class="d-lg-none d-md-block">Stats</span>
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="now-ui-icons location_world"></i>
+                  <p>
+                    <span class="d-lg-none d-md-block">Some Actions</span>
+                  </p>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#pablo">
+                  <i class="now-ui-icons users_single-02"></i>
+                  <p>
+                    <span class="d-lg-none d-md-block">Account</span>
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+
       @yield('content')
     </div>
   </div>
-  <!--   Core JS Files   -->
-  <script src="{{ asset('js/core/jquery.min.js') }}"></script>
-  <script src="{{ asset('js/core/popper.min.js') }}"></script>
-  <script src="{{ asset('js/core/bootstrap.min.js') }}"></script>
-  <script src="{{ asset('js/plugins/perfect-scrollbar.jquery.min.js') }}"></script>
-  <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-  <!-- Chart JS -->
-  <script src="{{ asset('js/plugins/chartjs.min.js') }}"></script>
-  <!--  Notifications Plugin    -->
-  <script src="{{ asset('js/plugins/bootstrap-notify.js') }}"></script>
-  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="{{ asset('js/now-ui-dashboard.min.js?v=1.3.0') }}" type="text/javascript"></script>
-  <!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
-  <script src="{{ asset('js/demo.js') }}"></script>
-  <script>
-    $(document).ready(function() {
-      // Javascript method's body can be found in assets/js/demos.js
-      demo.initDashboardPageCharts();
 
-    });
-  </script>
+  @if((Request::segment(1) == ''))
+    <!--   Core JS Files   -->
+    <script src="{{ asset('js/core/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/core/popper.min.js') }}"></script>
+    <script src="{{ asset('js/core/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/perfect-scrollbar.jquery.min.js') }}"></script>
+    <!-- Chart JS -->
+    <script src="{{ asset('js/plugins/chartjs.min.js') }}"></script>
+    <!--  Notifications Plugin    -->
+    <script src="{{ asset('js/plugins/bootstrap-notify.js') }}"></script>
+    <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="{{ asset('js/now-ui-dashboard.min.js?v=1.3.0') }}" type="text/javascript"></script>
+    <!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
+    <script src="{{ asset('js/demo.js') }}"></script>
+    <script>
+      $(document).ready(function() {
+        // Javascript method's body can be found in assets/js/demos.js
+        demo.initDashboardPageCharts();
+
+      });
+    </script>
+  @endif
 </body>
 
 </html>
