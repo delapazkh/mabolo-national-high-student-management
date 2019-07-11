@@ -33,7 +33,7 @@ class PersonsTable extends Migration
     public function up()
     {
         Schema::create('persons', function (Blueprint $table) {
-            $table->autoIncrement('id')->nullable(false);
+            $table->integer('id')->primary();
             $table->string('lastName', 30)->nullable(false);
             $table->string('givenName', 20)->nullable(false);
             $table->string('middleName', 10)->nullable(false);

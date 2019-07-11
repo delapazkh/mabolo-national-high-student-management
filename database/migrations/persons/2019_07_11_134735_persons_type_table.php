@@ -24,7 +24,7 @@ class PersonsTypeTable extends Migration
     public function up()
     {
         Schema::create('persons_type', function (Blueprint $table) {
-            $table->int('id')->primary();
+            $table->integer('id')->primary();
             $table->string('personTypeDescription', 30);
 
             $table->foreign('id')->references('id')->on('persons')

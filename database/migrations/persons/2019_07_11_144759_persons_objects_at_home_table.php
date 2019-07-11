@@ -23,7 +23,7 @@ class PersonsObjectsAtHomeTable extends Migration
     public function up()
     {
         Schema::create('persons_objects_at_home', function (Blueprint $table) {
-            $table->int('id')->primary();
+            $table->integer('id')->primary();
             $table->foreign('id')->references('id')->on('persons')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');

@@ -25,7 +25,7 @@ class StudentsFamilyTable extends Migration
     public function up()
     {
         Schema::create('students_family', function (Blueprint $table) {
-            $table->int('id')->primay();
+            $table->integer('id')->primay();
             $table->string('father_s_Name', 50)->nullable(false);
             $table->string('mother_s_Name', 50)->nullable(false);
             $table->string('deceased', 3)->default('No');

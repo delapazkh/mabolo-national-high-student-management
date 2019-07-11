@@ -26,7 +26,7 @@ class PersonsDirectionTable extends Migration
     public function up()
     {
         Schema::create('persons_direction', function (Blueprint $table) {
-            $table->int('id')->primary();
+            $table->integer('id')->primary();
             $table->string('countryName', 12)->nullable(false);
             $table->string('directionAddress', 120)->nullable(false);
 

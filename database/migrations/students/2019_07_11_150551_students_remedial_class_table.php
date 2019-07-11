@@ -31,7 +31,7 @@ class StudentsRemedialClassTable extends Migration
     public function up()
     {
         Schema::create('students_remedial_class', function (Blueprint $table) {
-            $table->int('id')->nullable(false);
+            $table->integer('id')->nullable(false);
             $table->foreign('id')->references('id')->on('persons')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');

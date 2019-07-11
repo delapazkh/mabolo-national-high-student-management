@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class RegionsClassTable extends Migration
+class RegionsTable extends Migration
 {
     // CREATE TABLE Regions(
     //     RegionNumber VARCHAR(15) DEFAULT 'REGION VII',

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class PersonsFatherStudentAliveTable extends Migration
+class PersonsFatherSStudentAliveTable extends Migration
 {
 
     // CREATE TABLE Father_s_StudentAlive(
@@ -33,7 +33,7 @@ class PersonsFatherStudentAliveTable extends Migration
     public function up()
     {
         Schema::create('persons_father_s_student_alive', function (Blueprint $table) {
-            $table->int('id');
+            $table->integer('id');
 
             $table->foreign('id')->references('id')->on('persons')
                 ->onDelete('cascade')

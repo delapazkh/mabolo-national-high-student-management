@@ -33,7 +33,7 @@ class PersonsMotherSStudentAliveTable extends Migration
     public function up()
     {
         Schema::create('persons_mother_s_student_alive', function (Blueprint $table) {
-            $table->int('id');
+            $table->integer('id');
 
             $table->foreign('id')->references('id')->on('persons')
                 ->onDelete('cascade')

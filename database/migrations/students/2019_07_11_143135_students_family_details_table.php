@@ -28,13 +28,13 @@ class StudentsFamilyDetailsTable extends Migration
     public function up()
     {
         Schema::create('students_family_details', function (Blueprint $table) {
-            $table->int('id');
+            $table->integer('id');
             $table->foreign('id')->references('id')->on('persons')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
-            $table->int('NumberofBrothers')->nullable(false);
-            $table->int('NumberofSisters')->nullable(false);
+            $table->integer('NumberofBrothers')->nullable(false);
+            $table->integer('NumberofSisters')->nullable(false);
             $table->string('DidBrother_SisterDroppedoutofSchool', 3)->nullable(false);
             $table->string('Reason', 50);
             $table->string('FamilyMemComOrgaAffiliated', 3)->nullable(false)->default('No');

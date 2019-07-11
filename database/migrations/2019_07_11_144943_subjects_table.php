@@ -30,7 +30,7 @@ class SubjectsTable extends Migration
             $table->string('subjectName', 12);
             $table->string('subjectCode', 6)->nullable(false);
             $table->string('subjectCSubjectDescriptionode', 30)->nullable(false);
-            $table->int('subjectCredit');
+            $table->integer('subjectCredit');
             $table->timestamps();
 
             $table->index(['subjectName', 'subjectCode']);

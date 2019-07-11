@@ -35,7 +35,7 @@ class StudentsLearningAreasTable extends Migration
     public function up()
     {
         Schema::create('students_learning_areas', function (Blueprint $table) {
-            $table->int('id')->nullable(false);
+            $table->integer('id')->nullable(false);
             $table->foreign('id')->references('id')->on('persons')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');

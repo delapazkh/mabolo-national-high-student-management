@@ -26,7 +26,7 @@ class StudentsAcademicHistoryTable extends Migration
     public function up()
     {
         Schema::create('students_academic_history', function (Blueprint $table) {
-            $table->int('id')->primary();
+            $table->integer('id')->primary();
             $table->float('previousGrade')->nullable(false);
             $table->string('lastSchoolAttended', 20)->nullable(false);
             $table->string('schoolYear', 12)->nullable(false);
@@ -35,8 +35,6 @@ class StudentsAcademicHistoryTable extends Migration
             $table->foreign('id')->references('id')->on('persons')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-
-            $table->index(['lastName', 'givenName']);
         });
     }
 

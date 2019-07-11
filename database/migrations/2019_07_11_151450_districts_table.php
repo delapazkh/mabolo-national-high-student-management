@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class DistrictTable extends Migration
+class DistrictsTable extends Migration
 {
     // CREATE TABLE Districts(
     //     DistrictName VARCHAR(30) NOT NULL,
@@ -19,7 +19,7 @@ class DistrictTable extends Migration
      */
     public function up()
     {
-        Schema::create('district', function (Blueprint $table) {
+        Schema::create('districts', function (Blueprint $table) {
             $table->string('districtName', 30)->nullable(false)->primary();
             $table->string('districtDescription', 30)->nullable(false);
             $table->timestamps();
@@ -35,6 +35,6 @@ class DistrictTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('district');
+        Schema::dropIfExists('districts');
     }
 }
