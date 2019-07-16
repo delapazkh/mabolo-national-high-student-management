@@ -6,23 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class StudentsRemedialClassTable extends Migration
 {
-    // CREATE TABLE StudentRemedialClass(
-    //     ID INT NOT NULL 
-    //     CONSTRAINT FK_PerRemClass FOREIGN KEY(ID) REFERENCES Persons
-    //     ON UPDATE CASCADE
-    //     ON DELETE CASCADE,
-        
-    //     LearningAreaName VARCHAR(15) NOT NULL,
-    //     CONSTRAINT FK_PerLearnRemClass FOREIGN KEY (LearningAreaName) REFERENCES LearningAreas
-    //     ON UPDATE CASCADE
-    //     ON DELETE CASCADE,
-
-    //     ConductedFrom DATETIME2 NOT NULL DEFAULT 'GETDATE',
-    //     ConductedTo DATETIME2 NOT NULL DEFAULT 'GETDATE',
-    //     RemClassMark VARCHAR(15),
-    //     RecomputedFinalGrade FLOAT,
-    //     Remarks VARCHAR(120)
-    // )
     /**
      * Run the migrations.
      *

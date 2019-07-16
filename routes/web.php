@@ -25,3 +25,4 @@ Route::get('/forms', 'FormsController@index')->name('index');
 
 Route::get('/enrollment', 'EnrollmentController@index')->name('index');
 Route::get('/enrollment/create', 'EnrollmentController@create')->name('create');
+Route::post('/enrollment/store', 'EnrollmentController@store')->name('store');

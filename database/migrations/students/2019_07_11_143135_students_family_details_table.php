@@ -6,20 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class StudentsFamilyDetailsTable extends Migration
 {
-    // CREATE TABLE StudentFamilyDetails(
-    //     ID INT NOT NULL FOREIGN KEY (ID) REFERENCES Persons
-    //     ON UPDATE CASCADE
-    //     ON DELETE CASCADE,
-    //     CONSTRAINT PK_StudFamiDet PRIMARY KEY (ID),
-
-    //     NumberofBrothers INT NOT NULL,
-    //     NumberofSisters INT NOT NULL,
-    //     DidBrother_SisterDroppedoutofSchool VARCHAR(3) NOT NULL,
-
-    //     Reason VARCHAR(50),
-    //     FamilyMemComOrgaAffiliated VARCHAR (3) NOT NULL DEFAULT 'NO',
-    //     OrganisationName VARCHAR (15)
-    // )
     /**
      * Run the migrations.
      *
@@ -33,12 +19,12 @@ class StudentsFamilyDetailsTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
-            $table->integer('NumberofBrothers')->nullable(false);
-            $table->integer('NumberofSisters')->nullable(false);
-            $table->string('DidBrother_SisterDroppedoutofSchool', 3)->nullable(false);
-            $table->string('Reason', 50);
-            $table->string('FamilyMemComOrgaAffiliated', 3)->nullable(false)->default('No');
-            $table->string('OrganisationName', 15);
+            $table->integer('numberofBrothers')->nullable(false);
+            $table->integer('numberofSisters')->nullable(false);
+            $table->string('didBrother_SisterDroppedoutofSchool', 3)->nullable(false)->default('NO');
+            $table->string('reason', 50);
+            $table->string('familyMemComOrgaAffiliated', 3)->nullable(false)->default('NO');
+            $table->string('organisationName', 90);
             $table->timestamps();
         });
     }

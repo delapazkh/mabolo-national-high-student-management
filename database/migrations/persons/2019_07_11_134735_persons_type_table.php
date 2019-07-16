@@ -6,16 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class PersonsTypeTable extends Migration
 {
-    
-    // CREATE TABLE PersonType (
-
-    //     ID INT NOT NULL FOREIGN KEY (ID) REFERENCES Persons
-    //     ON UPDATE CASCADE
-    //     ON DELETE CASCADE,
-    //     CONSTRAINT  PK_PersonType PRIMARY KEY  (ID),
-
-    //     PersonTypeDescription VARCHAR (10)
-    //  )
     /**
      * Run the migrations.
      *

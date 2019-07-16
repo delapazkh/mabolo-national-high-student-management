@@ -6,17 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class PersonsWaterSourceTable extends Migration
 {
-
-    // CREATE TABLE WaterSource(
-
-    //      ID INT NOT NULL FOREIGN KEY (ID) REFERENCES Persons
-    //      ON UPDATE CASCADE
-    //      ON DELETE CASCADE,
-    //       WaterSourceDesc VARCHAR(30) NOT NULL,
-    //      OthersSpecify VARCHAR(20)
-
-    //      CONSTRAINT PK_StudWatSource PRIMARY KEY(ID),
-    // )
     /**
      * Run the migrations.
      *
@@ -30,8 +19,8 @@ class PersonsWaterSourceTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
-            $table->string('WaterSourceDesc', 30)->nullable(false);
-            $table->string('OthersSpecify', 20);
+            $table->string('waterSourceDesc', 30)->nullable(false);
+            $table->string('othersSpecify', 20)->nullable(true);
             $table->timestamps();
         });
     }

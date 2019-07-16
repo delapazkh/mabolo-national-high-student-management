@@ -28,35 +28,23 @@
                   <th>
                     Name
                   </th>
-                  <th>
-                    Email
-                  </th>
-                  <th>
-                    Role
-                  </th>
                   <th class="text-right">
-                    Created at
+                    Enrollment Date
                   </th>
                   <th>
                   </th>
                 </thead>
                 <tbody>
-                  @foreach($users as $user)
+                  @foreach($persons as $person)
                     <tr>
                       <td>
-                        #{{$user->id}}
+                        #{{$person->id}}
                       </td>
                       <td>
-                        {{$user->name}}
-                      </td>
-                      <td>
-                        {{$user->email}}
-                      </td>
-                      <td>
-                        No role yet
+                        {{$person->lastName}}, {{$person->middleName}} {{$person->givenName}}
                       </td>
                       <td class="text-right">
-                        {{$user->created_at}}
+                        {{$person->enrollmentDate}}
                       </td>
                       <td class="td-actions text-right">
                         <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Edit Task">

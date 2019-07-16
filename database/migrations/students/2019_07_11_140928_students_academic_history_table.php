@@ -6,18 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class StudentsAcademicHistoryTable extends Migration
 {
-
-    //    CREATE TABLE  StudentAcademicHistory  (
-
-    //     ID INT NOT NULL FOREIGN KEY (ID) REFERENCES Persons
-    //     ON UPDATE CASCADE
-    //     ON DELETE CASCADE,
-    //     PreviousGrade FLOAT NOT NULL,
-    //     LastSchoolAttended VARCHAR(20) NOT NULL,
-    //     SchoolYear VARCHAR(12) NOT NULL,
-
-    //     CONSTRAINT PK_StudAcadHis PRIMARY KEY  (ID) 
-    // )
     /**
      * Run the migrations.
      *

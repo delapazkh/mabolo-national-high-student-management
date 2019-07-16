@@ -14,8 +14,6 @@
     MNHS
   </title>
 
-  <!-- Scripts -->
-  <script src="{{ asset('js/app.js') }}"></script>
 
   <!-- Fonts -->
   <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -36,7 +34,7 @@
 </head>
 
 <body class="">
-  <div class="wrapper ">
+  <div class="wrapper" id="app">
     <div class="sidebar" data-color="orange">
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
@@ -73,6 +71,12 @@
             <a href="/enrollment">
               <i class="fab fa-elementor"></i>
               <p>Enrollment</p>
+            </a>
+          </li>
+          <li class="{{ (Request::segment(1) == 'form137') ? 'active' : '' }}">
+            <a href="#">
+              <i class="fab fa-elementor"></i>
+              <p>Form 137 [Coming soon!]</p>
             </a>
           </li>
           <li class="{{ (Request::segment(1) == 'forms') ? 'active' : '' }}">
@@ -120,7 +124,7 @@
             <span class="navbar-toggler-bar navbar-kebab"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
-            <form>
+           <!--  <form>
               <div class="input-group no-border">
                 <input type="text" value="" class="form-control" placeholder="Search...">
                 <div class="input-group-append">
@@ -129,9 +133,9 @@
                   </div>
                 </div>
               </div>
-            </form>
+            </form> -->
             <ul class="navbar-nav">
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a class="nav-link" href="#pablo">
                   <i class="now-ui-icons media-2_sound-wave"></i>
                   <p>
@@ -151,9 +155,10 @@
                   <a class="dropdown-item" href="#">Another action</a>
                   <a class="dropdown-item" href="#">Something else here</a>
                 </div>
-              </li>
+              </li> -->
               <li class="nav-item">
                 <a class="nav-link" href="#pablo">
+                  {{ Auth::user()->name }}
                   <i class="now-ui-icons users_single-02"></i>
                   <p>
                     <span class="d-lg-none d-md-block">Account</span>
@@ -192,6 +197,8 @@
       });
     </script>
   @endif
+  <!-- Scripts -->
+  <script src="{{ asset('js/app.js') }}"></script>
 </body>
 
 </html>

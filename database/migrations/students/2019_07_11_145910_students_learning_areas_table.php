@@ -6,27 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class StudentsLearningAreasTable extends Migration
 {
-    // CREATE TABLE Student_LearningAreas(
-    //     ID INT NOT NULL 
-    //     CONSTRAINT FK_PersonLearn FOREIGN KEY(ID) REFERENCES Persons
-    //     ON UPDATE CASCADE
-    //     ON DELETE CASCADE,
-    //     LearningAreaName VARCHAR(15) NOT NULL,
-    //     CONSTRAINT FK_PerAreaName FOREIGN KEY (LearningAreaName) REFERENCES LearningAreas
-    //     ON UPDATE CASCADE
-    //     ON DELETE CASCADE,
-
-    //     SubjectName VARCHAR(12)
-    //     CONSTRAINT FK_PerSubject FOREIGN KEY (SubjectName ) REFERENCES  Subjects 
-    //     ON UPDATE CASCADE
-    //     ON DELETE CASCADE,
-
-    //     QuaterlyRating FLOAT, 
-    //     FinalRating FLOAT,
-    //     GeneralAverage FLOAT,
-        
-    //     Remarks VARCHAR(120)
-    // )
     /**
      * Run the migrations.
      *

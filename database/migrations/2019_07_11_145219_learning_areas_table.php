@@ -6,17 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class LearningAreasTable extends Migration
 {
-
-    // CREATE TABLE LearningAreas(
-    //     LearningAreaCode VARCHAR(6) NOT NULL,
-    //     LearningAreaName VARCHAR(15) NOT NULL,
-    //     AreaDescription VARCHAR(20)
-        
-    //     CONSTRAINT PK_LearnArea PRIMARY KEY(LearningAreaName),
-    //     CONSTRAINT UC_AreaName  UNIQUE (LearningAreaName),
-
-    //     INDEX Index_AreaName (LearningAreaName, LearningAreaCode)
-    // )
     /**
      * Run the migrations.
      *

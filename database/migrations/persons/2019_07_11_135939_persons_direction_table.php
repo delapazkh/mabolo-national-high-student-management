@@ -6,18 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class PersonsDirectionTable extends Migration
 {
-
-    // CREATE TABLE Direction(
-
-    //     ID INT NOT NULL FOREIGN KEY (ID) REFERENCES Persons
-    //     ON UPDATE CASCADE
-    //     ON DELETE CASCADE,
-    //     CountryName VARCHAR(12) NOT NULL  FOREIGN KEY(CountryName) REFERENCES Countries 
-    //     ON UPDATE CASCADE
-    //     ON DELETE CASCADE, 
-    //     DirectionAddress VARCHAR(120) NOT NULL,
-
-    // )
     /**
      * Run the migrations.
      *

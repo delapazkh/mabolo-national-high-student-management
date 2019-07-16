@@ -6,16 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class PersonsDwellingDetailsTable extends Migration
 {
-
-    // CREATE TABLE DwellingDetails(
-    //      ID INT NOT NULL FOREIGN KEY (ID) REFERENCES Persons
-    //      ON UPDATE CASCADE
-    //      ON DELETE CASCADE,
-    //      DwellingPlaceDesc  VARCHAR(20) NOT NULL,    
-    //      OthersSpecify VARCHAR (20)
-
-    //      CONSTRAINT PK_StudDwelPl PRIMARY KEY (ID),
-    // )
     /**
      * Run the migrations.
      *
@@ -29,8 +19,8 @@ class PersonsDwellingDetailsTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
-            $table->string('DwellingPlaceDesc', 20)->nullable(false);
-            $table->string('OthersSpecify', 20);
+            $table->string('dwellingPlaceDesc', 20)->nullable(false);
+            $table->string('othersSpecify', 20)->nullable(true);
             $table->timestamps();
         });
     }

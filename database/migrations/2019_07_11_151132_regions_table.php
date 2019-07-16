@@ -6,12 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class RegionsTable extends Migration
 {
-    // CREATE TABLE Regions(
-    //     RegionNumber VARCHAR(15) DEFAULT 'REGION VII',
-    //     RegionDescription VARCHAR(30) NOT NULL,
-    //     CONSTRAINT PK_Region PRIMARY KEY (RegionNumber),
-    //     INDEX IndexRegion (RegionNumber)
-    // )
     /**
      * Run the migrations.
      *

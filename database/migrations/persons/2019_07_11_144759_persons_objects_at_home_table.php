@@ -6,15 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class PersonsObjectsAtHomeTable extends Migration
 {
-    // CREATE TABLE ObjectsatHome(
-    //     ID INT NOT NULL FOREIGN KEY (ID) REFERENCES Persons
-    //      ON UPDATE CASCADE
-    //      ON DELETE CASCADE,
-    //      SpecificObjects VARCHAR(15) NOT NULL,
-    //      OthersSpecify VARCHAR(30)
-
-    //      CONSTRAINT PK_ObjatHome FOREIGN  KEY(ID) REFERENCES Persons,
-    // )
     /**
      * Run the migrations.
      *
@@ -28,8 +19,8 @@ class PersonsObjectsAtHomeTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
-            $table->string('SpecificObjects', 30)->nullable(false);
-            $table->string('OthersSpecify', 20);
+            $table->string('specificObjects', 30)->nullable(false);
+            $table->string('othersSpecify', 20)->nullable(true);
             $table->timestamps();
         });
     }

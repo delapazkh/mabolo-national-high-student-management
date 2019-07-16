@@ -6,16 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class PersonsToiletTypeTable extends Migration
 {
-
-    // CREATE TABLE ToiletType(
-    //      ID INT NOT NULL FOREIGN KEY (ID) REFERENCES Persons
-    //      ON UPDATE CASCADE
-    //      ON DELETE CASCADE,
-    //      ToiletTypeDescription VARCHAR(20) NOT NULL,
-    //      OthersSpecify VARCHAR(20),
-
-    //     CONSTRAINT PK_StudToilet PRIMARY KEY(ID),
-    // )
     /**
      * Run the migrations.
      *
@@ -30,7 +20,7 @@ class PersonsToiletTypeTable extends Migration
                 ->onUpdate('cascade');
 
             $table->string('toiletTypeDescription', 20)->nullable(false);
-            $table->string('othersSpecify', 20);
+            $table->string('othersSpecify', 20)->nullable(true);
             $table->timestamps();
         });
     }

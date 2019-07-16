@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Models\Roles;
 use Illuminate\Http\Request;
 
 class RolesController extends Controller
@@ -14,8 +14,8 @@ class RolesController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        return view('roles.index', compact('users'));
+        $roles = Roles::all();
+        return view('roles.index', compact('roles'));
     }
 
     /**

@@ -6,25 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class PersonsFatherSStudentAliveTable extends Migration
 {
-
-    // CREATE TABLE Father_s_StudentAlive(
-
-    //     ID INT NOT NULL FOREIGN KEY (ID) REFERENCES Persons
-    //     ON UPDATE CASCADE
-    //     ON DELETE CASCADE,
-    //     CONSTRAINT PK_FatherStud PRIMARY KEY(ID),
-
-    //     FatherDOB DATETIME NOT NULL,
-    //     Religion VARCHAR(15) NOT NULL,
-    //     Occupation VARCHAR(20) NOT NULL,
-    //     MonthlyIncome MONEY NOT NULL,
-
-    //     EducationLevel  VARCHAR(15) FOREIGN KEY (EducationLevel) REFERENCES EducationLevel
-    //     ON UPDATE CASCADE
-    //     ON DELETE CASCADE,
-    //     CONSTRAINT Edu_FatherStud FOREIGN KEY(EducationLevel) REFERENCES EducationLevel,
-    //     Grade FLOAT NOT NULL
-    // )
     /**
      * Run the migrations.
      *
@@ -39,15 +20,18 @@ class PersonsFatherSStudentAliveTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
+            $table->string('lastName', 30);
+            $table->string('givenName', 20);
+            $table->string('middleName', 10);
+            $table->string('age', 25);
+            $table->string('deathStatus', 5)->nullable(false)->default('false');
             $table->date('fatherDOB')->nullable(false);
             $table->string('religion', 15)->nullable(false);
             $table->string('occupation', 20)->nullable(false);
             $table->decimal('monthlyIncome', 15,2)->nullable(false);
-
-            $table->string('educationLevel', 15)->nullable(false);
-            $table->foreign('educationLevel')->references('educationLevel')->on('education_level')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
+            $table->string('educationLevel', 35)->nullable(false);
+            $table->string('skills', 10);
+            $table->string('course', 10);
 
             $table->float('grade')->nullable(false);
             $table->timestamps();

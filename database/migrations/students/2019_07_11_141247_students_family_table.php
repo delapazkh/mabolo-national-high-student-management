@@ -6,17 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class StudentsFamilyTable extends Migration
 {
-
-    // CREATE TABLE StudentFamily (
-    //     ID INT NOT NULL FOREIGN KEY (ID) REFERENCES Persons
-    //     ON UPDATE CASCADE
-    //     ON DELETE CASCADE,
-    //     Father_s_Name VARCHAR(50)  NOT NULL, 
-    //     Mother_s_Name VARCHAR(50) Not NULL,
-    //     Deceased VARCHAR(3) DEFAULT 'YES'
-        
-    //    CONSTRAINT PK_StudFami PRIMARY KEY  (ID)
-    // ) 
     /**
      * Run the migrations.
      *

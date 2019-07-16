@@ -6,13 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class DivisionsTable extends Migration
 {
-
-    // CREATE TABLE Divisions(
-    //     DivisionName VARCHAR(20),
-    //     DivisionDescription VARCHAR(30) NOT NULL,
-    //     CONSTRAINT PK_Division PRIMARY KEY (DivisionName),
-    //     INDEX IndexDivision(DivisionName)
-    // )
     /**
      * Run the migrations.
      *

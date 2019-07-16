@@ -53,7 +53,7 @@
                         {{$user->email}}
                       </td>
                       <td>
-                        No role yet
+                        {{$user->role_id}}
                       </td>
                       <td class="text-right">
                         {{$user->created_at}}

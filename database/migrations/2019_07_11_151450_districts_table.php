@@ -6,12 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class DistrictsTable extends Migration
 {
-    // CREATE TABLE Districts(
-    //     DistrictName VARCHAR(30) NOT NULL,
-    //     DistrictDescription VARCHAR(30) NOT NULL
-    //     CONSTRAINT PK_District PRIMARY KEY(DistrictName),
-    //     INDEX IndexDistrict(DistrictName)
-    // )
     /**
      * Run the migrations.
      *

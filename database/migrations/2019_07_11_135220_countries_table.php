@@ -6,18 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CountriesTable extends Migration
 {
-
-    // CREATE TABLE  Countries(
-    //     CountryName VARCHAR (12),
-    //     CountryCode VARCHAR(2) NOT NULL,
-    //     Nationality VARCHAR(15) NOT NULL
-
-    //     CONSTRAINT PK_Country PRIMARY KEY (CountryName),
-    //     CONSTRAINT UC_CountryCode UNIQUE (CountryCode),
-
-    //     INDEX Country(CountryName, CountryCode)
-    // )
-    
     /**
      * Run the migrations.
      *
