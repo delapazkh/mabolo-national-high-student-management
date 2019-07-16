@@ -82,21 +82,21 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
           <div class="form-group">
             Student ID
             <input name="pi_student_id" type="text" class="form-control" placeholder="#">
             <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
           <div class="form-group">
             Birth date
             <input name="pi_birthdate" type="date" class="form-control">
             <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
           <div class="form-group">
             Enrollment date
             <input name="pi_enrollment_date" type="date" class="form-control">
@@ -196,7 +196,10 @@
         <div class="col-md-4">
           <div class="form-group">
             A member of 4 P's
-            <input name="pi_member_of_4ps" type="text" class="form-control" placeholder="Yes / No">
+            <select name="pi_member_of_4ps" class="form-control" id="exampleFormControlSelect1">
+              <option value="No">No</option>
+              <option value="Yes">Yes</option>
+            </select>
           </div>
         </div>
       </div>
@@ -384,7 +387,10 @@
       <div class="row">
         <div class="col-md-12">
           <div class="form-group">
-            <input name="es_student_dropout_school" type="text" class="form-control" placeholder="Yes / No">
+            <select name="es_student_dropout_school" class="form-control" id="exampleFormControlSelect1">
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
           </div>
         </div>
       </div>
@@ -408,8 +414,10 @@
       <div class="row">
         <div class="col-md-12">
           <div class="form-group">
-            During the school time, does the student stay with the parents?
-            <input name="es_stay_with_parents" type="text" class="form-control" placeholder="Yes / No">
+            <select name="es_stay_with_parents" class="form-control" id="exampleFormControlSelect1">
+              <option value="No">No</option>
+              <option value="Yes">Yes</option>
+            </select>
           </div>
         </div>
       </div>
@@ -429,7 +437,10 @@
         <div class="col-md-12">
           <div class="form-group">
             Does the student work to support schooling costs? 
-            <input name="es_work_to_support" type="text" class="form-control" placeholder="Yes / No">
+            <select name="es_work_to_support" class="form-control" id="exampleFormControlSelect1">
+              <option value="No">No</option>
+              <option value="Yes">Yes</option>
+            </select>
           </div>
         </div>
       </div>
@@ -481,8 +492,11 @@
         </div>
         <div class="col-md-3">
           <div class="form-group">
-            Is Father alive or deceased?
-            <input name="fhs_fathers_death_status" type="text" class="form-control" placeholder="Alive or Deceased">
+            Is Father alive?
+            <select name="fhs_fathers_death_status" class="form-control" id="exampleFormControlSelect1">
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
           </div>
         </div>
       </div>
@@ -585,8 +599,11 @@
         </div>
         <div class="col-md-3">
           <div class="form-group">
-            Is Mother alive or deceased?
-            <input name="fhs_mothers_death_status" type="text" class="form-control" placeholder="Alive or Deceased">
+            Is Mother alive?
+            <select name="fhs_mothers_death_status" class="form-control" id="exampleFormControlSelect1">
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
           </div>
         </div>
       </div>
@@ -677,7 +694,10 @@
         <div class="col-md-4">
           <div class="form-group">
             Did brother and sister dropped out of school?
-            <input name="fhs_brother_sister_dropout_school" type="text" class="form-control" placeholder="Yes or No">
+            <select name="fhs_brother_sister_dropout_school" class="form-control" id="exampleFormControlSelect1">
+              <option value="No">No</option>
+              <option value="Yes">Yes</option>
+            </select>
             <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
           </div>
         </div>
@@ -697,7 +717,10 @@
         <div class="col-md-12">
           <div class="form-group">
             Are there family members who are affiliated with community organization?
-            <input name="fhs_family_members_affiliated_with_community_organization" type="text" class="form-control" placeholder="Yes or No">
+            <select name="fhs_family_members_affiliated_with_community_organization" class="form-control" id="exampleFormControlSelect1">
+              <option value="No">No</option>
+              <option value="Yes">Yes</option>
+            </select>
           </div>
         </div>
       </div>
@@ -934,8 +957,10 @@ export default {
       submitForm: function(){
         axios.post('/enrollment/store', $('form').serialize()).then(function (response) {
           this.success_message = response.data.message
+          this.error_message   = ""
         }.bind(this)).catch(function (error) {
-          this.error_message = error.response.data.message
+          this.success_message = ""
+          this.error_message   = error.response.data.message
         }.bind(this))
       }
     }

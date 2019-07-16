@@ -2760,6 +2760,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2772,7 +2795,9 @@ __webpack_require__.r(__webpack_exports__);
     submitForm: function submitForm() {
       axios.post('/enrollment/store', $('form').serialize()).then(function (response) {
         this.success_message = response.data.message;
+        this.error_message = "";
       }.bind(this))["catch"](function (error) {
+        this.success_message = "";
         this.error_message = error.response.data.message;
       }.bind(this));
     }
@@ -38407,7 +38432,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-3" }, [
+      _c("div", { staticClass: "col-md-4" }, [
         _c("div", { staticClass: "form-group" }, [
           _vm._v("\n            Student ID\n            "),
           _c("input", {
@@ -38417,7 +38442,7 @@ var staticRenderFns = [
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-3" }, [
+      _c("div", { staticClass: "col-md-4" }, [
         _c("div", { staticClass: "form-group" }, [
           _vm._v("\n            Birth date\n            "),
           _c("input", {
@@ -38427,7 +38452,7 @@ var staticRenderFns = [
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-3" }, [
+      _c("div", { staticClass: "col-md-4" }, [
         _c("div", { staticClass: "form-group" }, [
           _vm._v("\n            Enrollment date\n            "),
           _c("input", {
@@ -38616,14 +38641,21 @@ var staticRenderFns = [
       _c("div", { staticClass: "col-md-4" }, [
         _c("div", { staticClass: "form-group" }, [
           _vm._v("\n            A member of 4 P's\n            "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: {
-              name: "pi_member_of_4ps",
-              type: "text",
-              placeholder: "Yes / No"
-            }
-          })
+          _c(
+            "select",
+            {
+              staticClass: "form-control",
+              attrs: {
+                name: "pi_member_of_4ps",
+                id: "exampleFormControlSelect1"
+              }
+            },
+            [
+              _c("option", { attrs: { value: "No" } }, [_vm._v("No")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "Yes" } }, [_vm._v("Yes")])
+            ]
+          )
         ])
       ])
     ])
@@ -39055,14 +39087,21 @@ var staticRenderFns = [
     return _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-12" }, [
         _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            staticClass: "form-control",
-            attrs: {
-              name: "es_student_dropout_school",
-              type: "text",
-              placeholder: "Yes / No"
-            }
-          })
+          _c(
+            "select",
+            {
+              staticClass: "form-control",
+              attrs: {
+                name: "es_student_dropout_school",
+                id: "exampleFormControlSelect1"
+              }
+            },
+            [
+              _c("option", { attrs: { value: "Yes" } }, [_vm._v("Yes")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "No" } }, [_vm._v("No")])
+            ]
+          )
         ])
       ])
     ])
@@ -39102,17 +39141,21 @@ var staticRenderFns = [
     return _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-12" }, [
         _c("div", { staticClass: "form-group" }, [
-          _vm._v(
-            "\n            During the school time, does the student stay with the parents?\n            "
-          ),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: {
-              name: "es_stay_with_parents",
-              type: "text",
-              placeholder: "Yes / No"
-            }
-          })
+          _c(
+            "select",
+            {
+              staticClass: "form-control",
+              attrs: {
+                name: "es_stay_with_parents",
+                id: "exampleFormControlSelect1"
+              }
+            },
+            [
+              _c("option", { attrs: { value: "No" } }, [_vm._v("No")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "Yes" } }, [_vm._v("Yes")])
+            ]
+          )
         ])
       ])
     ])
@@ -39147,14 +39190,21 @@ var staticRenderFns = [
           _vm._v(
             "\n            Does the student work to support schooling costs? \n            "
           ),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: {
-              name: "es_work_to_support",
-              type: "text",
-              placeholder: "Yes / No"
-            }
-          })
+          _c(
+            "select",
+            {
+              staticClass: "form-control",
+              attrs: {
+                name: "es_work_to_support",
+                id: "exampleFormControlSelect1"
+              }
+            },
+            [
+              _c("option", { attrs: { value: "No" } }, [_vm._v("No")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "Yes" } }, [_vm._v("Yes")])
+            ]
+          )
         ])
       ])
     ])
@@ -39247,15 +39297,22 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("div", { staticClass: "col-md-3" }, [
         _c("div", { staticClass: "form-group" }, [
-          _vm._v("\n            Is Father alive or deceased?\n            "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: {
-              name: "fhs_fathers_death_status",
-              type: "text",
-              placeholder: "Alive or Deceased"
-            }
-          })
+          _vm._v("\n            Is Father alive?\n            "),
+          _c(
+            "select",
+            {
+              staticClass: "form-control",
+              attrs: {
+                name: "fhs_fathers_death_status",
+                id: "exampleFormControlSelect1"
+              }
+            },
+            [
+              _c("option", { attrs: { value: "Yes" } }, [_vm._v("Yes")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "No" } }, [_vm._v("No")])
+            ]
+          )
         ])
       ])
     ])
@@ -39478,15 +39535,22 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("div", { staticClass: "col-md-3" }, [
         _c("div", { staticClass: "form-group" }, [
-          _vm._v("\n            Is Mother alive or deceased?\n            "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: {
-              name: "fhs_mothers_death_status",
-              type: "text",
-              placeholder: "Alive or Deceased"
-            }
-          })
+          _vm._v("\n            Is Mother alive?\n            "),
+          _c(
+            "select",
+            {
+              staticClass: "form-control",
+              attrs: {
+                name: "fhs_mothers_death_status",
+                id: "exampleFormControlSelect1"
+              }
+            },
+            [
+              _c("option", { attrs: { value: "Yes" } }, [_vm._v("Yes")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "No" } }, [_vm._v("No")])
+            ]
+          )
         ])
       ])
     ])
@@ -39683,14 +39747,21 @@ var staticRenderFns = [
           _vm._v(
             "\n            Did brother and sister dropped out of school?\n            "
           ),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: {
-              name: "fhs_brother_sister_dropout_school",
-              type: "text",
-              placeholder: "Yes or No"
-            }
-          })
+          _c(
+            "select",
+            {
+              staticClass: "form-control",
+              attrs: {
+                name: "fhs_brother_sister_dropout_school",
+                id: "exampleFormControlSelect1"
+              }
+            },
+            [
+              _c("option", { attrs: { value: "No" } }, [_vm._v("No")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "Yes" } }, [_vm._v("Yes")])
+            ]
+          )
         ])
       ])
     ])
@@ -39728,14 +39799,22 @@ var staticRenderFns = [
           _vm._v(
             "\n            Are there family members who are affiliated with community organization?\n            "
           ),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: {
-              name: "fhs_family_members_affiliated_with_community_organization",
-              type: "text",
-              placeholder: "Yes or No"
-            }
-          })
+          _c(
+            "select",
+            {
+              staticClass: "form-control",
+              attrs: {
+                name:
+                  "fhs_family_members_affiliated_with_community_organization",
+                id: "exampleFormControlSelect1"
+              }
+            },
+            [
+              _c("option", { attrs: { value: "No" } }, [_vm._v("No")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "Yes" } }, [_vm._v("Yes")])
+            ]
+          )
         ])
       ])
     ])
