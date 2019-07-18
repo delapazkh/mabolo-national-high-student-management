@@ -53,6 +53,23 @@ class EnrollmentController extends Controller
     {
 
         try {
+            $request->validate([
+                'pi_student_id'      => 'required|unique:posts|max:255',
+                'pi_family_name'     => 'required',
+                'pi_given_name'      => 'required',
+                'pi_middle_name'     => 'required',
+                'pi_birthdate'       => 'required',
+                'pi_enrollment_date' => 'required|date',
+                'pi_direction_one'   => 'required',
+                'pi_direction_two'   => 'required',
+                'pi_direction_three' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return response(["message"=> $validator], 400)
+                  ->header('Content-Type', 'application/json');
+            }
+
+
             $o = new Persons;
             $o->id             = $request->input('pi_student_id');
             $o->student_id     = $request->input('pi_student_id');
@@ -217,7 +234,7 @@ class EnrollmentController extends Controller
             $o->save();
         } catch (\Exception $e) {
             return response(["message"=> $e->getMessage()], 400)
-                  ->header('Content-Type', 'text/plain');
+                  ->header('Content-Type', 'application/json');
         }
 
         return response(["message"=>"Successfully Enrolled!"], 200)
