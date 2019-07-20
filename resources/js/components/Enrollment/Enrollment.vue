@@ -87,7 +87,7 @@
       </div>
 
       <!----------------------------- I. Personal Information ------------------------------>
-      
+
       <div class="row">
         <div class="col-md-12">
           <h4 class="card-title">I. Personal Information</h4>
@@ -218,10 +218,12 @@
         <div class="col-md-4">
           <div class="form-group">
             A member of 4 P's
+
             <select name="pi_member_of_4ps" class="form-control">
               <option value="No">No</option>
               <option value="Yes">Yes</option>
             </select>
+              <small class="form-text text-muted" style="color:red !important">{{array_of_errors.pi_guardian_occupation[0]}}</small>
           </div>
         </div>
       </div>
@@ -231,18 +233,21 @@
           <div class="form-group">
             Enrolled as Grade
             <input name="pi_enrolled_as_grade" type="text" class="form-control">
+              <small class="form-text text-muted" style="color:red !important">{{array_of_errors.pi_guardian_occupation[0]}}</small>
           </div>
         </div>
         <div class="col-md-4">
           <div class="form-group">
             School last attended
             <input name="pi_school_last_attended" type="text" class="form-control">
+            <small class="form-text text-muted" style="color:red !important">{{array_of_errors.pi_school_last_attended[0]}}</small>
           </div>
         </div>
         <div class="col-md-4">
           <div class="form-group">
             School year
             <input name="pi_school_year" type="text" class="form-control">
+            <small class="form-text text-muted" style="color:red !important">{{array_of_errors.pi_school_year[0]}}</small>
           </div>
         </div>
       </div>
@@ -465,7 +470,7 @@
       <div class="row">
         <div class="col-md-12">
           <div class="form-group">
-            Does the student work to support schooling costs? 
+            Does the student work to support schooling costs?
             <select name="es_work_to_support" class="form-control">
               <option value="No">No</option>
               <option value="Yes">Yes</option>
@@ -783,6 +788,7 @@
       <div class="row">
         <div class="col-md-2" style="text-align: right;">
           Check whicever applies:
+          <small class="form-text text-muted" style="color:red !important">{{array_of_errors.iad_dwelling[0]}}</small>
         </div>
         <div class="col-md-1">
           <div class="form-group">
@@ -818,7 +824,8 @@
       </div>
       <div class="row">
         <div class="col-md-2" style="text-align: right;">
-          Type of toilet: 
+          Type of toilet:
+          <small class="form-text text-muted" style="color:red !important">{{array_of_errors.iad_toilet_type[0]}}</small>
         </div>
         <div class="col-md-1">
           <div class="form-group">
@@ -849,6 +856,7 @@
       <div class="row">
         <div class="col-md-2" style="text-align: right;">
           Source of water:
+          <small class="form-text text-muted" style="color:red !important">{{array_of_errors.iad_source_of_water[0]}}</small>
         </div>
         <div class="col-md-1">
           <div class="form-group">
@@ -885,6 +893,7 @@
       <div class="row">
         <div class="col-md-2" style="text-align: right;">
           Check if available at home:
+            <small class="form-text text-muted" style="color:red !important">{{array_of_errors.iad_source_of_water[0]}}</small>
         </div>
         <div class="col-md-1">
           <div class="form-group">
@@ -972,7 +981,7 @@
           <div class="table-responsive">
               <button type="submit" class="btn btn-primary">Enroll Now</button>
               <a href="/enrollment" class="btn btn-link">
-                <i class="fas fa-long-arrow-alt-left" style="margin-right: 5px"></i> 
+                <i class="fas fa-long-arrow-alt-left" style="margin-right: 5px"></i>
                 Back to list
               </a>
           </div>

@@ -105,15 +105,15 @@ class EnrollmentController extends Controller
             'fhs_mothers_family_name'    => 'required',
             'fhs_mothers_given_name'     => 'required',
             'fhs_mothers_middle_name'    => 'required',
-            'fhs_mothers_age'            => 'required',
+            'fhs_mothers_age'            => '',
 
-            'fhs_mothers_death_status'                  => 'required|in:YES,NO',
-            'fhs_mothers_religion'                      => 'required',
-            'fhs_mothers_occupation'                    => 'required',
-            'fhs_mothers_monthly_income'                => 'required',
-            'fhs_mothers_edu_attainment'                => 'required|in:elementary_level,elementary_grad,highschool_level,highschool_grad,college_level,college_grad',
-            'fhs_number_brothers'                       => 'required',
-            'fhs_number_sisters'                        => 'required',
+            'fhs_mothers_death_status'  => 'required|in:YES,NO',
+            'fhs_mothers_religion'      => 'required',
+            'fhs_mothers_occupation'    => 'required',
+            'fhs_mothers_monthly_income'=> 'required',
+            'fhs_mothers_edu_attainment'=> 'required|in:elementary_level,elementary_grad,highschool_level,highschool_grad,college_level,college_grad',
+            'fhs_number_brothers'       => 'required',
+            'fhs_number_sisters'        => 'required',
 
             'fhs_brother_sister_dropout_school'         => 'required|in:YES,NO',
             'fhs_brother_sister_dropout_school_reason'  => 'required|in:YES,NO',
@@ -132,7 +132,6 @@ class EnrollmentController extends Controller
 
             // Extra Curricular
             'extra_curricular'            => 'required',
-
         ]);
         if ($validator->fails()) {
             return response(["message"=> $validator->messages()], 400)
