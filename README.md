@@ -2,8 +2,8 @@
 
 ## Setup Libraries in this sequence  
 
-1. `composer install (if live server)` or `composer update (if local)`    
-2. `npm install (if local)`     
+1. `composer install` (if live server) or `composer update` (if local)    
+2. `npm install` (if local)     
 3.  `Please copy .env.example and create another .env`  
 4. `php artisan key:generate`   
 5. Create database name mnhs    
@@ -13,9 +13,7 @@
 
 
 ## Setup default values  
-
-### `php artisan db:seed`       
+`php artisan db:seed`       
 
 ## Run  
-
 `php artisan serve`  
