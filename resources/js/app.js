@@ -24,6 +24,7 @@ let $ = JQuery
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('enrollment-form', require('./components/Enrollment/Enrollment.vue').default);
+Vue.component('one-three-seven-form', require('./components/Forms/OneThreeSeven.vue').default);
 Vue.component('person-list', require('./components/Persons/Persons.vue').default);
 
 /**

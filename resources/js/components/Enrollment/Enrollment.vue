@@ -1066,6 +1066,7 @@ export default {
       }
     },
     created: function(){
+      // nothing to do
     },
     methods: {
       submitForm: function(){

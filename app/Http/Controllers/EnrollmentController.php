@@ -39,7 +39,7 @@ class EnrollmentController extends Controller
      */
     public function create()
     {
-        return view('enrollment.create');
+        return view('forms.enrollment');
     }
 
     /**

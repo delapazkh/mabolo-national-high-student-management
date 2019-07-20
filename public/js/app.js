@@ -2904,7 +2904,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, _defineProperty(_array_of_errors, "school_enrolled", []), _defineProperty(_array_of_errors, "school_enrolled_date", []), _defineProperty(_array_of_errors, "school_enrolled_lrn", []), _defineProperty(_array_of_errors, "school_enrolled_student_status", []), _array_of_errors)
     };
   },
-  created: function created() {},
+  created: function created() {// nothing to do
+  },
   methods: {
     submitForm: function submitForm() {
       this.clearErrors();
@@ -2982,6 +2983,227 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         pi_student_id: [],
         pi_member_of_4ps: []
       }, _defineProperty(_this$array_of_errors, "school_enrolled", []), _defineProperty(_this$array_of_errors, "school_enrolled_date", []), _defineProperty(_this$array_of_errors, "school_enrolled_lrn", []), _defineProperty(_this$array_of_errors, "school_enrolled_student_status", []), _this$array_of_errors);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Forms/OneThreeSeven.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Forms/OneThreeSeven.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      success_message: "",
+      error_message: ""
+    };
+  },
+  created: function created() {// nothing to do
+  },
+  methods: {
+    submitForm: function submitForm() {
+      axios.post('/enrollment/store', $('form').serialize()).then(function (response) {
+        this.success_message = response.data.message;
+        this.error_message = "";
+      }.bind(this))["catch"](function (error) {
+        this.success_message = "";
+        this.error_message = error.response.data.message;
+      }.bind(this));
     }
   }
 });
@@ -41268,6 +41490,444 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Forms/OneThreeSeven.vue?vue&type=template&id=33a1650c&":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Forms/OneThreeSeven.vue?vue&type=template&id=33a1650c& ***!
+  \**********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("span", [
+    _c(
+      "form",
+      {
+        attrs: { method: "post" },
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.submitForm($event)
+          }
+        }
+      },
+      [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("br"),
+        _c("br"),
+        _vm._v(" "),
+        _vm._m(1),
+        _vm._v(" "),
+        _vm._m(2),
+        _vm._v(" "),
+        _vm._m(3),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _vm._m(4),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _vm._m(5),
+        _vm._v(" "),
+        _vm._m(6),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _vm._m(7),
+        _vm._v(" "),
+        _vm._m(8),
+        _vm._v(" "),
+        _vm._m(9),
+        _vm._v(" "),
+        _vm._m(10),
+        _vm._v(" "),
+        _vm._m(11)
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-2" }),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-md-8", staticStyle: { "text-align": "center" } },
+        [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v("\n        Republic of the Philippines "),
+            _c("br"),
+            _vm._v("\n        Department of Education\n        "),
+            _c("h4", { staticClass: "card-title" }, [
+              _vm._v(
+                "\n        Learner Permanent Record for Junior High School (SF10-JHS)\n        "
+              )
+            ]),
+            _vm._v(" "),
+            _c("i", [_vm._v("(Formerly Form 137)")]),
+            _vm._v(" "),
+            _c("h5", { staticClass: "card-title" }, [
+              _vm._v("\n        Learner's Information\n        ")
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-2" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "table-responsive" }, [
+          _c(
+            "button",
+            { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+            [_vm._v("Submit 137 form")]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            { staticClass: "btn btn-link", attrs: { href: "/enrollment" } },
+            [
+              _c("i", {
+                staticClass: "fas fa-long-arrow-alt-left",
+                staticStyle: { "margin-right": "5px" }
+              }),
+              _vm._v(" \n            Back to list\n          ")
+            ]
+          )
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-4" }, [
+        _vm._v("\n      Last name\n      "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { name: "school_enrolled", type: "text" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [
+        _vm._v("\n      First name\n      "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { name: "school_enrolled", type: "text" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-2" }, [
+        _vm._v("\n      Name Extn. (Jr, I, II)\n      "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { name: "school_enrolled", type: "text" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-2" }, [
+        _vm._v("\n      Middle name\n      "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { name: "school_enrolled", type: "text" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-4" }, [
+        _vm._v("\n      Learn Reference Number (LRN): \n      "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { name: "school_enrolled", type: "text" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [
+        _vm._v("\n      Birthdate \n      "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            name: "school_enrolled",
+            type: "date",
+            placeholder: "(mm/dd/yyyy)"
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [
+        _vm._v("\n      Sex\n      "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            name: "school_enrolled",
+            type: "text",
+            placeholder: "Male / Female"
+          }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c(
+        "div",
+        { staticClass: "col-md-12", staticStyle: { "text-align": "center" } },
+        [
+          _c("h4", { staticClass: "card-title" }, [
+            _vm._v("\n      Eligibility for JHS Enrollment\n      ")
+          ])
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { name: "school_enrolled", type: "checkbox" }
+        }),
+        _vm._v(" \n      Elementary School Completer \n    ")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [
+        _vm._v("\n      General Average: \n      "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { name: "school_enrolled", type: "text", placeholder: "" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [
+        _vm._v("\n      Citation: \n      "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            name: "school_enrolled",
+            type: "text",
+            placeholder: "(If any)"
+          }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-4" }, [
+        _vm._v("\n      Name of Elementary School:\n      "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { name: "school_enrolled", type: "text" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [
+        _vm._v("\n      School ID:\n      "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { name: "school_enrolled", type: "text", placeholder: "" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [
+        _vm._v("\n      Address of School:\n      "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { name: "school_enrolled", type: "text", placeholder: "" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _vm._v("\n      Other credentials presented\n    ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-2" }, [
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { name: "school_enrolled", type: "checkbox" }
+        }),
+        _vm._v(" \n      PEPT Passer\n    ")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-2" }, [
+        _vm._v("\n      Rating:\n      "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { name: "school_enrolled", type: "text", placeholder: "" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-2" }, [
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { name: "school_enrolled", type: "checkbox" }
+        }),
+        _vm._v(" \n      ALS A & E Passer\n    ")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-2" }, [
+        _vm._v("\n      Rating:\n      "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { name: "school_enrolled", type: "text", placeholder: "" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-2" }, [
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { name: "school_enrolled", type: "checkbox" }
+        }),
+        _vm._v(" \n      Others (Pls. Specify)\n    ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-2" }, [
+        _vm._v("\n      Date of Examination/Assesment:\n      "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            name: "school_enrolled",
+            type: "date",
+            placeholder: "(mm/dd/yyyy)"
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-2" }, [
+        _vm._v("\n      Rating:\n      "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { name: "school_enrolled", type: "text", placeholder: "" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-2" }, [
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { name: "school_enrolled", type: "checkbox" }
+        }),
+        _vm._v(" \n      ALS A & E Passer\n    ")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-2" }, [
+        _vm._v("\n      Rating:\n      "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { name: "school_enrolled", type: "text", placeholder: "" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-2" }, [
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { name: "school_enrolled", type: "checkbox" }
+        }),
+        _vm._v(" \n      Others (Pls. Specify)\n    ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("br"),
+        _c("br"),
+        _c("br"),
+        _c("br"),
+        _c("br"),
+        _c("br")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "table-responsive" }, [
+          _c(
+            "button",
+            { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+            [_vm._v("Submit 137 form")]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            { staticClass: "btn btn-link", attrs: { href: "/enrollment" } },
+            [
+              _c("i", {
+                staticClass: "fas fa-long-arrow-alt-left",
+                staticStyle: { "margin-right": "5px" }
+              }),
+              _vm._v("\n            Back to list\n          ")
+            ]
+          )
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Persons/Persons.vue?vue&type=template&id=54b8f432&":
 /*!******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Persons/Persons.vue?vue&type=template&id=54b8f432& ***!
@@ -53576,6 +54236,7 @@ var $ = jquery__WEBPACK_IMPORTED_MODULE_1___default.a;
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('enrollment-form', __webpack_require__(/*! ./components/Enrollment/Enrollment.vue */ "./resources/js/components/Enrollment/Enrollment.vue")["default"]);
+Vue.component('one-three-seven-form', __webpack_require__(/*! ./components/Forms/OneThreeSeven.vue */ "./resources/js/components/Forms/OneThreeSeven.vue")["default"]);
 Vue.component('person-list', __webpack_require__(/*! ./components/Persons/Persons.vue */ "./resources/js/components/Persons/Persons.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -53714,6 +54375,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Enrollment_vue_vue_type_template_id_7833fb98___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Enrollment_vue_vue_type_template_id_7833fb98___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Forms/OneThreeSeven.vue":
+/*!*********************************************************!*\
+  !*** ./resources/js/components/Forms/OneThreeSeven.vue ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _OneThreeSeven_vue_vue_type_template_id_33a1650c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./OneThreeSeven.vue?vue&type=template&id=33a1650c& */ "./resources/js/components/Forms/OneThreeSeven.vue?vue&type=template&id=33a1650c&");
+/* harmony import */ var _OneThreeSeven_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./OneThreeSeven.vue?vue&type=script&lang=js& */ "./resources/js/components/Forms/OneThreeSeven.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _OneThreeSeven_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _OneThreeSeven_vue_vue_type_template_id_33a1650c___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _OneThreeSeven_vue_vue_type_template_id_33a1650c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Forms/OneThreeSeven.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Forms/OneThreeSeven.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/Forms/OneThreeSeven.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OneThreeSeven_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./OneThreeSeven.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Forms/OneThreeSeven.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OneThreeSeven_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Forms/OneThreeSeven.vue?vue&type=template&id=33a1650c&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/Forms/OneThreeSeven.vue?vue&type=template&id=33a1650c& ***!
+  \****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OneThreeSeven_vue_vue_type_template_id_33a1650c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./OneThreeSeven.vue?vue&type=template&id=33a1650c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Forms/OneThreeSeven.vue?vue&type=template&id=33a1650c&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OneThreeSeven_vue_vue_type_template_id_33a1650c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OneThreeSeven_vue_vue_type_template_id_33a1650c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

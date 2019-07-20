@@ -67,22 +67,22 @@
               <p>Roles</p>
             </a>
           </li>
-          <li class="{{ (Request::segment(1) == 'enrollment') ? 'active' : '' }}">
-            <a href="/enrollment">
+          <li class="{{ (Request::segment(2) == 'enrollment') ? 'active' : '' }}">
+            <a href="/forms/enrollment">
               <i class="fab fa-elementor"></i>
-              <p>Enrollment</p>
+              <p>Enrollment Form</p>
             </a>
           </li>
-          <li class="{{ (Request::segment(1) == 'form137') ? 'active' : '' }}">
-            <a href="#">
+          <li class="{{ (Request::segment(2) == '137') ? 'active' : '' }}">
+            <a href="/forms/137">
               <i class="fab fa-elementor"></i>
-              <p>Form 137 [Coming soon!]</p>
+              <p>Form 137</p>
             </a>
           </li>
-          <li class="{{ (Request::segment(1) == 'forms') ? 'active' : '' }}">
+          <li class="{{ (Request::segment(2) != '137' && Request::segment(2) != 'enrollment') ? ((Request::segment(1) == 'forms') ? 'active' : '') : ''  }}">
             <a href="/forms">
-              <i class="now-ui-icons design_bullet-list-67"></i>
-              <p>Forms</p>
+              <i class="fab fa-elementor"></i>
+              <p>Dynamic Forms</p>
             </a>
           </li>
           <li class="active-pro">
@@ -113,8 +113,9 @@
               {{ (Request::segment(1) == '/') ? 'Dashboard' : '' }}
               {{ (Request::segment(1) == 'users') ? 'Users' : '' }}
               {{ (Request::segment(1) == 'roles') ? 'Roles' : '' }}
-              {{ (Request::segment(1) == 'enrollment') ? 'Enrollment' : '' }}
-              {{ (Request::segment(1) == 'forms') ? 'Forms' : '' }}
+              {{ (Request::segment(2) == 'enrollment') ? 'Enrollment Form' : '' }}
+              {{ (Request::segment(2) == '137') ? 'Form 137' : '' }}
+              {{ (Request::segment(2) != '137' && Request::segment(2) != 'enrollment') ? ((Request::segment(1) == 'forms') ? 'active' : '') : '' }}
               
           </a>
           </div>
