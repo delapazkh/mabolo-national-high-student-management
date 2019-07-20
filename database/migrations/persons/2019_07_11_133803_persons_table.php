@@ -20,10 +20,11 @@ class PersonsTable extends Migration
             $table->string('givenName', 20)->nullable(false);
             $table->string('middleName', 10)->nullable(false);
             $table->date('birthDate')->nullable(false);
-            $table->string('civilStatus', 10)->nullable(false);
-            $table->string('gender', 10)->nullable(false);
-            $table->string('bloodGroup', 3)->nullable(false);
-            $table->string('religion', 15)->nullable(false);
+            $table->string('civilStatus', 10)->nullable(true);
+            $table->string('gender', 10)->nullable(true);
+            $table->string('bloodGroup', 3)->nullable(true);
+            $table->string('religion', 15)->nullable(true);
+            $table->string('address', 255)->nullable(true);
             $table->date('enrollmentDate')->useCurrent();
             $table->timestamps();
 
