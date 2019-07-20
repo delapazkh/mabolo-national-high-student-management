@@ -29,8 +29,7 @@ class EnrollmentController extends Controller
      */
     public function index()
     {
-        $persons = Persons::all();
-        return view('enrollment.index', compact('persons'));
+        return view('persons.index');
     }
 
     /**
@@ -56,10 +55,10 @@ class EnrollmentController extends Controller
             'school_enrolled'                => 'required',
             'school_enrolled_date'           => 'required|date',
             'school_enrolled_lrn'            => 'required',
-            'school_enrolled_student_status' => 'required|transferee,balik_aral,new_student,old_student',
+            'school_enrolled_student_status' => 'required|in:transferee,balik_aral,new_student,old_student',
 
             // Personal Information
-            'pi_student_id'              => 'required|unique:posts|max:255',
+            'pi_student_id'              => 'required|max:255',
             'pi_family_name'             => 'required',
             'pi_given_name'              => 'required',
             'pi_middle_name'             => 'required',
@@ -102,7 +101,7 @@ class EnrollmentController extends Controller
             'fhs_fathers_religion'       => 'required',
             'fhs_fathers_occupation'     => 'required',
             'fhs_fathers_monthly_income' => 'required',
-            'fhs_fathers_edu_attainment' => 'required|elementary_level,elementary_grad,highschool_level,highschool_grad,college_level,college_grad',
+            'fhs_fathers_edu_attainment' => 'required|in:elementary_level,elementary_grad,highschool_level,highschool_grad,college_level,college_grad',
             'fhs_mothers_family_name'    => 'required',
             'fhs_mothers_given_name'     => 'required',
             'fhs_mothers_middle_name'    => 'required',
@@ -112,7 +111,7 @@ class EnrollmentController extends Controller
             'fhs_mothers_religion'                      => 'required',
             'fhs_mothers_occupation'                    => 'required',
             'fhs_mothers_monthly_income'                => 'required',
-            'fhs_mothers_edu_attainment'                => 'required|elementary_level,elementary_grad,highschool_level,highschool_grad,college_level,college_grad',
+            'fhs_mothers_edu_attainment'                => 'required|in:elementary_level,elementary_grad,highschool_level,highschool_grad,college_level,college_grad',
             'fhs_number_brothers'                       => 'required',
             'fhs_number_sisters'                        => 'required',
 

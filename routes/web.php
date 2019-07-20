@@ -13,16 +13,18 @@
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home'); // HTML view
 
-Route::get('/users', 'UsersController@index')->name('index');
-Route::get('/users/create', 'UsersController@create')->name('create');
+Route::get('/users', 'UsersController@index')->name('index'); // HTML view
+Route::get('/users/create', 'UsersController@create')->name('create'); // HTML view
 
-Route::get('/roles', 'RolesController@index')->name('index');
-Route::get('/roles/create', 'RolesController@create')->name('create');
+Route::get('/roles', 'RolesController@index')->name('index'); // HTML view
+Route::get('/roles/create', 'RolesController@create')->name('create'); // HTML view
 
-Route::get('/forms', 'FormsController@index')->name('index');
+Route::get('/forms', 'FormsController@index')->name('index'); // HTML view
 
-Route::get('/enrollment', 'EnrollmentController@index')->name('index');
-Route::get('/enrollment/create', 'EnrollmentController@create')->name('create');
-Route::post('/enrollment/store', 'EnrollmentController@store')->name('store');
+Route::get('/persons', 'PersonsController@persons')->name('persons'); // API call
+
+Route::get ('/enrollment', 'EnrollmentController@index')->name('index'); // HTML view
+Route::get ('/enrollment/create', 'EnrollmentController@create')->name('create');
+Route::post('/enrollment/store', 'EnrollmentController@store')->name('store'); // API call

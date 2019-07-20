@@ -3,6 +3,17 @@
     <form method="post" v-on:submit.prevent="submitForm">
       <div class="row">
         <div class="col-md-12">
+          <div class="table-responsive">
+              <button type="submit" class="btn btn-primary">Enroll Now</button>
+              <a href="/enrollment" class="btn btn-link">
+                <i class="fas fa-long-arrow-alt-left" style="margin-right: 5px"></i> 
+                Back to list
+              </a>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
           <div class="alert alert-success" role="alert" v-if="success_message">
             {{success_message}}
           </div>
@@ -247,6 +258,7 @@
       <div class="row">
         <div class="col-md-4" style="text-align: right;">
           Travel Time? (Check the nearest time from home to school):
+          <small class="form-text text-muted" style="color:red !important">{{array_of_errors.es_travel_time[0]}}</small>
         </div>
         <div class="col-md-1">
           <div class="form-group">
@@ -344,6 +356,7 @@
       <div class="row">
         <div class="col-md-4" style="text-align: right;">
           Who help the student in doing homework?
+          <small class="form-text text-muted" style="color:red !important">{{array_of_errors.es_help_for_homework[0]}}</small>
         </div>
         <div class="col-md-1">
           <div class="form-group">
@@ -387,7 +400,6 @@
             <i class="fas fa-users"></i> Classmates
           </div>
         </div>
-        <small class="form-text text-muted" style="color:red !important">{{array_of_errors.es_help_for_homework[0]}}</small>
       </div>
 
       <div class="row">
@@ -940,7 +952,7 @@
 
 
 <!-------------------------------- End ---------------------------------->
-      <!-- <div class="row">
+      <div class="row">
         <div class="col-md-12">
           <br><br><br><br><br><br>
           <br><br><br><br><br><br>
@@ -953,7 +965,7 @@
           <span>_________________________________________________</span>
           <h4 class="card-title">Signature over printedname</h4>
         </div>
-      </div> -->
+      </div>
 
       <div class="row">
         <div class="col-md-12">
@@ -1048,6 +1060,8 @@ export default {
     },
     methods: {
       submitForm: function(){
+        this.clearErrors()
+        
         axios.post('/enrollment/store', $('form').serialize()).then(function (response) {
           this.success_message = response.data.message
           this.error_message   = ""
@@ -1056,6 +1070,74 @@ export default {
           this.error_message   = error.response.data.message
           this.array_of_errors = error.response.data.errors
         }.bind(this))
+      },
+      clearErrors: function(){
+        this.array_of_errors = {
+          school_enrolled: [],
+          es_dropout_reasons: [],
+          es_help_for_homework: [],
+          es_how_long_dropout: [],
+          es_relationship_staying: [],
+          es_stay_with_parents: [],
+          es_student_dropout_school: [],
+          es_travel_time: [],
+          es_work_of_student: [],
+          es_work_to_support: [],
+          es_others_specify: [],
+          es_transportation: [],
+          extra_curricular: [],
+          fhs_brother_sister_dropout_school: [],
+          fhs_brother_sister_dropout_school_reason: [],
+          fhs_family_members_affiliated_with_community_organization: [],
+          fhs_fathers_age: [],
+          fhs_fathers_death_status: [],
+          fhs_fathers_edu_attainment: [],
+          fhs_fathers_family_name: [],
+          fhs_fathers_given_name: [],
+          fhs_fathers_middle_name: [],
+          fhs_fathers_monthly_income: [],
+          fhs_fathers_occupation: [],
+          fhs_fathers_religion: [],
+          fhs_mothers_age: [],
+          fhs_mothers_death_status: [],
+          fhs_mothers_edu_attainment: [],
+          fhs_mothers_family_name: [],
+          fhs_mothers_given_name: [],
+          fhs_mothers_middle_name: [],
+          fhs_mothers_monthly_income: [],
+          fhs_mothers_occupation: [],
+          fhs_mothers_religion: [],
+          fhs_name_of_organization: [],
+          fhs_number_brothers: [],
+          fhs_number_sisters: [],
+          iad_dwelling: [],
+          iad_objects_at_home: [],
+          iad_source_of_water: [],
+          iad_toilet_type: [],
+          pi_birthdate: [],
+          pi_direction_one: [],
+          pi_direction_three: [],
+          pi_direction_two: [],
+          pi_enrolled_as_grade: [],
+          pi_enrollment_date: [],
+          pi_family_name: [],
+          pi_given_name: [],
+          pi_guardian_contact_number: [],
+          pi_guardian_family_name: [],
+          pi_guardian_given_name: [],
+          pi_guardian_middle_name: [],
+          pi_guardian_occupation: [],
+          pi_middle_name: [],
+          pi_relationship_to_student: [],
+          pi_school_last_attended: [],
+          pi_school_year: [],
+          pi_student_id: [],
+          pi_member_of_4ps: [],
+          school_enrolled: [],
+          school_enrolled_date: [],
+          school_enrolled_lrn: [],
+          school_enrolled_student_status: []
+        };
       }
     }
 }

@@ -1,4 +1,5 @@
-# Mabolo National High School - Student Management System  
+# Mabolo National High School   
+## Student Management System   
 
 ## Setup Libraries in this sequence  
 
@@ -17,3 +18,7 @@
 
 ## Run  
 10. `php artisan serve`  
+
+
+## For !local! development only  
+11. `npm run watch` to run vue.js and compile the javascripts   
