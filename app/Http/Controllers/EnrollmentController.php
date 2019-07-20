@@ -51,93 +51,93 @@ class EnrollmentController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            // School enrolled
+            'school_enrolled'                => 'required',
+            'school_enrolled_date'           => 'required|date',
+            'school_enrolled_lrn'            => 'required',
+            'school_enrolled_student_status' => 'required|transferee,balik_aral,new_student,old_student',
 
+            // Personal Information
+            'pi_student_id'              => 'required|unique:posts|max:255',
+            'pi_family_name'             => 'required',
+            'pi_given_name'              => 'required',
+            'pi_middle_name'             => 'required',
+            'pi_birthdate'               => 'required',
+            'pi_enrollment_date'         => 'required|date',
+            'pi_direction_one'           => 'required',
+            'pi_direction_two'           => 'required',
+            'pi_direction_three'         => 'required',
+            'pi_guardian_occupation'     => 'required',
+            'pi_guardian_contact_number' => 'required',
+            'pi_guardian_family_name'    => 'required',
+            'pi_guardian_given_name'     => 'required',
+            'pi_guardian_middle_name'    => 'required',
+            'pi_relationship_to_student' => 'required',
+            'pi_member_of_4ps'           => 'required',
+            'pi_enrolled_as_grade'       => 'required',
+            'pi_school_last_attended'    => 'required',
+            'pi_school_year'             => 'required',
+
+            // Education situation
+            'es_travel_time'             => 'required',
+            'es_transportation'          => 'required',
+            'es_others_specify'          => 'required_if:es_transportation,==,others',
+            'es_transportation'          => 'required_if:es_transportation,!=,others',
+            'es_help_for_homework'       => 'required',
+            'es_student_dropout_school'  => 'required|in:YES,NO',
+            'es_how_long_dropout'        => 'required',
+            'es_dropout_reasons'         => 'required',
+            'es_stay_with_parents'       => 'required|in:YES,NO',
+            'es_relationship_staying'    => 'required',
+            'es_work_to_support'         => 'required|in:YES,NO',
+            'es_work_of_student'         => 'required',
+
+            // Family and Home Situation
+            'fhs_fathers_family_name'    => 'required',
+            'fhs_fathers_given_name'     => 'required',
+            'fhs_fathers_middle_name'    => 'required',
+            'fhs_fathers_age'            => 'required',
+            'fhs_fathers_death_status'   => 'required|in:YES,NO',
+            'fhs_fathers_religion'       => 'required',
+            'fhs_fathers_occupation'     => 'required',
+            'fhs_fathers_monthly_income' => 'required',
+            'fhs_fathers_edu_attainment' => 'required|elementary_level,elementary_grad,highschool_level,highschool_grad,college_level,college_grad',
+            'fhs_mothers_family_name'    => 'required',
+            'fhs_mothers_given_name'     => 'required',
+            'fhs_mothers_middle_name'    => 'required',
+            'fhs_mothers_age'            => 'required',
+
+            'fhs_mothers_death_status'                  => 'required|in:YES,NO',
+            'fhs_mothers_religion'                      => 'required',
+            'fhs_mothers_occupation'                    => 'required',
+            'fhs_mothers_monthly_income'                => 'required',
+            'fhs_mothers_edu_attainment'                => 'required|elementary_level,elementary_grad,highschool_level,highschool_grad,college_level,college_grad',
+            'fhs_number_brothers'                       => 'required',
+            'fhs_number_sisters'                        => 'required',
+            'fhs_brother_sister_dropout_school'         => 'required|in:YES,NO',
+            'fhs_brother_sister_dropout_school_reason'  => 'required|in:YES,NO',
+            'fhs_family_members_affiliated_with_community_organization'  => 'required|in:YES,NO',
+            'fhs_name_of_organization'                  => 'required',
+
+            // Information about dwelling
+            'iad_dwelling'                => 'required',
+            'iad_dwelling_specify'        => 'required_if:iad_dwelling,==,others',
+            'iad_toilet_type'             => 'required',
+            'iad_toilet_type_specify'     => 'required_if:iad_toilet_type,==,others',
+            'iad_source_of_water'         => 'required',
+            'iad_source_of_water_specify' => 'required_if:iad_source_of_water,==,others',
+            'iad_objects_at_home'         => 'required',
+            'iad_objects_at_home_specify' => 'required_if:iad_objects_at_home,==,others',
+            'extra_curricular'            => 'required',
+
+        ]);
+        if ($validator->fails()) {
+            return response(["message"=> $validator->errors()->all()], 400)
+              ->header('Content-Type', 'application/json');
+        }
+        
         try {
-            $request->validate([
-                // School enrolled
-                'school_enrolled'                => 'required',
-                'school_enrolled_date'           => 'required|date',
-                'school_enrolled_lrn'            => 'required',
-                'school_enrolled_student_status' => 'required|transferee,balik_aral,new_student,old_student',
-
-                // Personal Information
-                'pi_student_id'              => 'required|unique:posts|max:255',
-                'pi_family_name'             => 'required',
-                'pi_given_name'              => 'required',
-                'pi_middle_name'             => 'required',
-                'pi_birthdate'               => 'required',
-                'pi_enrollment_date'         => 'required|date',
-                'pi_direction_one'           => 'required',
-                'pi_direction_two'           => 'required',
-                'pi_direction_three'         => 'required',
-                'pi_guardian_occupation'     => 'required',
-                'pi_guardian_contact_number' => 'required',
-                'pi_guardian_family_name'    => 'required',
-                'pi_guardian_given_name'     => 'required',
-                'pi_guardian_middle_name'    => 'required',
-                'pi_relationship_to_student' => 'required',
-                'pi_member_of_4ps'           => 'required',
-                'pi_enrolled_as_grade'       => 'required',
-                'pi_school_last_attended'    => 'required',
-                'pi_school_year'             => 'required',
-
-                // Education situation
-                'es_travel_time'             => 'required',
-                'es_transportation'          => 'required',
-                'es_others_specify'          => 'required_if:es_transportation,==,others',
-                'es_transportation'          => 'required_if:es_transportation,!=,others',
-                'es_help_for_homework'       => 'required',
-                'es_student_dropout_school'  => 'required|in:YES,NO',
-                'es_how_long_dropout'        => 'required',
-                'es_dropout_reasons'         => 'required',
-                'es_stay_with_parents'       => 'required|in:YES,NO',
-                'es_relationship_staying'    => 'required',
-                'es_work_to_support'         => 'required|in:YES,NO',
-                'es_work_of_student'         => 'required',
-
-                // Family and Home Situation
-                'fhs_fathers_family_name'    => 'required',
-                'fhs_fathers_given_name'     => 'required',
-                'fhs_fathers_middle_name'    => 'required',
-                'fhs_fathers_age'            => 'required',
-                'fhs_fathers_death_status'   => 'required|in:YES,NO',
-                'fhs_fathers_religion'       => 'required',
-                'fhs_fathers_occupation'     => 'required',
-                'fhs_fathers_monthly_income' => 'required',
-                'fhs_fathers_edu_attainment' => 'required|elementary_level,elementary_grad,highschool_level,highschool_grad,college_level,college_grad',
-                'fhs_mothers_family_name'    => 'required',
-                'fhs_mothers_given_name'     => 'required',
-                'fhs_mothers_middle_name'    => 'required',
-                'fhs_mothers_age'            => 'required',
-
-                'fhs_mothers_death_status'                  => 'required|in:YES,NO',
-                'fhs_mothers_religion'                      => 'required',
-                'fhs_mothers_occupation'                    => 'required',
-                'fhs_mothers_monthly_income'                => 'required',
-                'fhs_mothers_edu_attainment'                => 'required|elementary_level,elementary_grad,highschool_level,highschool_grad,college_level,college_grad',
-                'fhs_number_brothers'                       => 'required',
-                'fhs_number_sisters'                        => 'required',
-                'fhs_brother_sister_dropout_school'         => 'required|in:YES,NO',
-                'fhs_brother_sister_dropout_school_reason'  => 'required|in:YES,NO',
-                'fhs_family_members_affiliated_with_community_organization'  => 'required|in:YES,NO',
-                'fhs_name_of_organization'                  => 'required',
-
-                // Information about dwelling
-                'iad_dwelling'                => 'required',
-                'iad_dwelling_specify'        => 'required_if:iad_dwelling,==,others',
-                'iad_toilet_type'             => 'required',
-                'iad_toilet_type_specify'     => 'required_if:iad_toilet_type,==,others',
-                'iad_source_of_water'         => 'required',
-                'iad_source_of_water_specify' => 'required_if:iad_source_of_water,==,others',
-                'iad_objects_at_home'         => 'required',
-                'iad_objects_at_home_specify' => 'required_if:iad_objects_at_home,==,others',
-                'extra_curricular'            => 'required',
-
-            ]);
-            if ($validator->fails()) {
-                return response(["message"=> $validator->errors()->all()], 400)
-                  ->header('Content-Type', 'application/json');
-            }
 
             $addres_1 = $request->input('pi_direction_one');
             $addres_2 = $request->input('pi_direction_two');
