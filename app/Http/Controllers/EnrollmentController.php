@@ -115,6 +115,7 @@ class EnrollmentController extends Controller
             'fhs_mothers_edu_attainment'                => 'required|elementary_level,elementary_grad,highschool_level,highschool_grad,college_level,college_grad',
             'fhs_number_brothers'                       => 'required',
             'fhs_number_sisters'                        => 'required',
+
             'fhs_brother_sister_dropout_school'         => 'required|in:YES,NO',
             'fhs_brother_sister_dropout_school_reason'  => 'required|in:YES,NO',
             'fhs_family_members_affiliated_with_community_organization'  => 'required|in:YES,NO',
@@ -129,14 +130,16 @@ class EnrollmentController extends Controller
             'iad_source_of_water_specify' => 'required_if:iad_source_of_water,==,others',
             'iad_objects_at_home'         => 'required',
             'iad_objects_at_home_specify' => 'required_if:iad_objects_at_home,==,others',
+
+            // Extra Curricular
             'extra_curricular'            => 'required',
 
         ]);
         if ($validator->fails()) {
-            return response(["message"=> $validator->errors()->all()], 400)
+            return response(["message"=> $validator->messages()], 400)
               ->header('Content-Type', 'application/json');
         }
-        
+
         try {
 
             $addres_1 = $request->input('pi_direction_one');
