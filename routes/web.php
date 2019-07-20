@@ -22,6 +22,7 @@ Route::get('/roles', 'RolesController@index')->name('index');
 Route::get('/roles/create', 'RolesController@create')->name('create');
 
 Route::get('/forms', 'FormsController@index')->name('index');
+Route::get('/Students', 'StudentListController@index')->name('index');
 
 Route::get('/enrollment', 'EnrollmentController@index')->name('index');
 Route::get('/enrollment/create', 'EnrollmentController@create')->name('create');

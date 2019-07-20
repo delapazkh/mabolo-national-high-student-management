@@ -73,6 +73,12 @@
               <p>Enrollment</p>
             </a>
           </li>
+          <li class="{{ (Request::segment(1) == 'Students') ? 'active' : '' }}">
+            <a href="/Students">
+              <i class="fab fa-elementor"></i>
+              <p>Students</p>
+            </a>
+          </li>
           <li class="{{ (Request::segment(1) == 'form137') ? 'active' : '' }}">
             <a href="#">
               <i class="fab fa-elementor"></i>
@@ -115,7 +121,7 @@
               {{ (Request::segment(1) == 'roles') ? 'Roles' : '' }}
               {{ (Request::segment(1) == 'enrollment') ? 'Enrollment' : '' }}
               {{ (Request::segment(1) == 'forms') ? 'Forms' : '' }}
-              
+
           </a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
