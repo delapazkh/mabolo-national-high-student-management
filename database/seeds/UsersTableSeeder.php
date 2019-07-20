@@ -15,7 +15,16 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Lukas Kvien',
             'email' => 'lukaskvien@dayrep.com',
-            'role_id' => 1,
+            'role_id' => 7,
+            'email_verified_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'password' => bcrypt('123456'),
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+        ]);
+        DB::table('users')->insert([
+            'name' => 'John Doe',
+            'email' => 'doejh@gmail.com',
+            'role_id' => 8,
             'email_verified_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'password' => bcrypt('123456'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
