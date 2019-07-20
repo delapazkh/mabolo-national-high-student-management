@@ -13,7 +13,7 @@
 
 
 ## Setup default values  
-`php artisan db:seed`       
+9. `php artisan db:seed`       
 
 ## Run  
-`php artisan serve`  
+10. `php artisan serve`  
