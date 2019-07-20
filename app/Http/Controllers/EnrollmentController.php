@@ -51,24 +51,100 @@ class EnrollmentController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            // School enrolled
+            'school_enrolled'                => 'required',
+            'school_enrolled_date'           => 'required|date',
+            'school_enrolled_lrn'            => 'required',
+            'school_enrolled_student_status' => 'required|transferee,balik_aral,new_student,old_student',
+
+            // Personal Information
+            'pi_student_id'              => 'required|unique:posts|max:255',
+            'pi_family_name'             => 'required',
+            'pi_given_name'              => 'required',
+            'pi_middle_name'             => 'required',
+            'pi_birthdate'               => 'required',
+            'pi_enrollment_date'         => 'required|date',
+            'pi_direction_one'           => 'required',
+            'pi_direction_two'           => 'required',
+            'pi_direction_three'         => 'required',
+            'pi_guardian_occupation'     => 'required',
+            'pi_guardian_contact_number' => 'required',
+            'pi_guardian_family_name'    => 'required',
+            'pi_guardian_given_name'     => 'required',
+            'pi_guardian_middle_name'    => 'required',
+            'pi_relationship_to_student' => 'required',
+            'pi_member_of_4ps'           => 'required',
+            'pi_enrolled_as_grade'       => 'required',
+            'pi_school_last_attended'    => 'required',
+            'pi_school_year'             => 'required',
+
+            // Education situation
+            'es_travel_time'             => 'required',
+            'es_transportation'          => 'required',
+            'es_others_specify'          => 'required_if:es_transportation,==,others',
+            'es_transportation'          => 'required_if:es_transportation,!=,others',
+            'es_help_for_homework'       => 'required',
+            'es_student_dropout_school'  => 'required|in:YES,NO',
+            'es_how_long_dropout'        => 'required',
+            'es_dropout_reasons'         => 'required',
+            'es_stay_with_parents'       => 'required|in:YES,NO',
+            'es_relationship_staying'    => 'required',
+            'es_work_to_support'         => 'required|in:YES,NO',
+            'es_work_of_student'         => 'required',
+
+            // Family and Home Situation
+            'fhs_fathers_family_name'    => 'required',
+            'fhs_fathers_given_name'     => 'required',
+            'fhs_fathers_middle_name'    => 'required',
+            'fhs_fathers_age'            => 'required',
+            'fhs_fathers_death_status'   => 'required|in:YES,NO',
+            'fhs_fathers_religion'       => 'required',
+            'fhs_fathers_occupation'     => 'required',
+            'fhs_fathers_monthly_income' => 'required',
+            'fhs_fathers_edu_attainment' => 'required|elementary_level,elementary_grad,highschool_level,highschool_grad,college_level,college_grad',
+            'fhs_mothers_family_name'    => 'required',
+            'fhs_mothers_given_name'     => 'required',
+            'fhs_mothers_middle_name'    => 'required',
+            'fhs_mothers_age'            => 'required',
+
+            'fhs_mothers_death_status'                  => 'required|in:YES,NO',
+            'fhs_mothers_religion'                      => 'required',
+            'fhs_mothers_occupation'                    => 'required',
+            'fhs_mothers_monthly_income'                => 'required',
+            'fhs_mothers_edu_attainment'                => 'required|elementary_level,elementary_grad,highschool_level,highschool_grad,college_level,college_grad',
+            'fhs_number_brothers'                       => 'required',
+            'fhs_number_sisters'                        => 'required',
+
+            'fhs_brother_sister_dropout_school'         => 'required|in:YES,NO',
+            'fhs_brother_sister_dropout_school_reason'  => 'required|in:YES,NO',
+            'fhs_family_members_affiliated_with_community_organization'  => 'required|in:YES,NO',
+            'fhs_name_of_organization'                  => 'required',
+
+            // Information about dwelling
+            'iad_dwelling'                => 'required',
+            'iad_dwelling_specify'        => 'required_if:iad_dwelling,==,others',
+            'iad_toilet_type'             => 'required',
+            'iad_toilet_type_specify'     => 'required_if:iad_toilet_type,==,others',
+            'iad_source_of_water'         => 'required',
+            'iad_source_of_water_specify' => 'required_if:iad_source_of_water,==,others',
+            'iad_objects_at_home'         => 'required',
+            'iad_objects_at_home_specify' => 'required_if:iad_objects_at_home,==,others',
+
+            // Extra Curricular
+            'extra_curricular'            => 'required',
+
+        ]);
+        if ($validator->fails()) {
+            return response(["message"=> $validator->messages()], 400)
+              ->header('Content-Type', 'application/json');
+        }
 
         try {
-            $request->validate([
-                'pi_student_id'      => 'required|unique:posts|max:255',
-                'pi_family_name'     => 'required',
-                'pi_given_name'      => 'required',
-                'pi_middle_name'     => 'required',
-                'pi_birthdate'       => 'required',
-                'pi_enrollment_date' => 'required|date',
-                'pi_direction_one'   => 'required',
-                'pi_direction_two'   => 'required',
-                'pi_direction_three' => 'required',
-            ]);
-            if ($validator->fails()) {
-                return response(["message"=> $validator], 400)
-                  ->header('Content-Type', 'application/json');
-            }
 
+            $addres_1 = $request->input('pi_direction_one');
+            $addres_2 = $request->input('pi_direction_two');
+            $addres_3 = $request->input('pi_direction_three');
 
             $o = new Persons;
             $o->id             = $request->input('pi_student_id');
@@ -77,25 +153,8 @@ class EnrollmentController extends Controller
             $o->givenName      = $request->input('pi_given_name');
             $o->middleName     = $request->input('pi_middle_name');
             $o->birthDate      = $request->input('pi_birthdate');
+            $o->address        = $addres_1.' '.$addres_2.' '.$addres_3;
             $o->enrollmentDate = $request->input('pi_enrollment_date');
-
-            // Dummy Data
-            $o->civilStatus    = 'empty';
-            $o->gender         = 'empty';
-            $o->bloodGroup     = 'emp';
-            $o->religion       = 'empty';
-            $o->save();
-
-            $addres_1 = $request->input('pi_direction_one');
-            $addres_2 = $request->input('pi_direction_two');
-            $addres_3 = $request->input('pi_direction_three');
-
-            $o = new PersonsDirection;
-            $o->id               = $request->input('pi_student_id');
-            $o->directionAddress = $addres_1.' '.$addres_2.' '.$addres_3;
-            
-            // Dummy Data
-            $o->countryName      = 'Philippines'; 
             $o->save();
 
             $o = new StudentsGuardian;
@@ -157,12 +216,6 @@ class EnrollmentController extends Controller
             $o->occupation     = $request->input('fhs_fathers_occupation');
             $o->monthlyIncome  = $request->input('fhs_fathers_monthly_income');
             $o->educationLevel = $request->input('fhs_fathers_edu_attainment');
-
-            // Dummy
-            $o->fatherDOB      = date('Y-m-d H:i:s');
-            $o->skills         = "empty";
-            $o->course         = "empty";
-            $o->grade          = 0;
             $o->save();
 
             $mothers_family_name = $request->input('fhs_mothers_family_name');
@@ -180,14 +233,8 @@ class EnrollmentController extends Controller
             $o->occupation     = $request->input('fhs_mothers_occupation');
             $o->monthlyIncome  = $request->input('fhs_mothers_monthly_income');
             $o->educationLevel = $request->input('fhs_mothers_edu_attainment');
-
-            // Dummy
-            $o->fatherDOB      = date('Y-m-d H:i:s');
-            $o->skills         = "empty";
-            $o->course         = "empty";
-            $o->grade          = 0;
             $o->save();
-            
+
             $o = new StudentsFamily;
             $o->id            = $request->input('pi_student_id');
             $o->father_s_Name = $fathers_family_name.', '.$fathers_given_name.' '.$fathers_middle_name;
@@ -209,13 +256,13 @@ class EnrollmentController extends Controller
             $o->dwellingPlaceDesc = $request->input('iad_dwelling');
             $o->othersSpecify     = $request->input('iad_dwelling_specify');
             $o->save();
-            
+
             $o = new PersonsToiletType;
             $o->id                    = $request->input('pi_student_id');
             $o->toiletTypeDescription = $request->input('iad_toilet_type');
             $o->othersSpecify         = $request->input('iad_toilet_type_specify');
             $o->save();
-            
+
             $o = new PersonsSourceOfWater;
             $o->id              = $request->input('pi_student_id');
             $o->waterSourceDesc = $request->input('iad_source_of_water');
@@ -233,6 +280,12 @@ class EnrollmentController extends Controller
             $o->details = $request->input('extra_curricular');
             $o->save();
         } catch (\Exception $e) {
+
+            $person = Persons::find($request->input('pi_student_id'));
+            if($person){
+              $person->delete();
+            }
+
             return response(["message"=> $e->getMessage()], 400)
                   ->header('Content-Type', 'application/json');
         }
