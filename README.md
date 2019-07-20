@@ -4,7 +4,7 @@
 
 1. `composer install` (if live server) or `composer update` (if local)    
 2. `npm install` (if local)     
-3.  `Please copy .env.example and create another .env`  
+3.  Please copy `.env.example` and create another `.env`  
 4. `php artisan key:generate`   
 5. Create database name mnhs    
 6. `php artisan migrate --path=database/migrations/2019_07_15_151545_roles_table.php`  
