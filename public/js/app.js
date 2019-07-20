@@ -2812,6 +2812,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     var _array_of_errors;
@@ -18020,7 +18029,7 @@ return jQuery;
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
  * @license
  * Lodash <https://lodash.com/>
- * Copyright JS Foundation and other contributors <https://js.foundation/>
+ * Copyright OpenJS Foundation and other contributors <https://openjsf.org/>
  * Released under MIT license <https://lodash.com/license>
  * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
  * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -18031,7 +18040,7 @@ return jQuery;
   var undefined;
 
   /** Used as the semantic version number. */
-  var VERSION = '4.17.11';
+  var VERSION = '4.17.15';
 
   /** Used as the size to enable large array optimizations. */
   var LARGE_ARRAY_SIZE = 200;
@@ -20690,16 +20699,10 @@ return jQuery;
         value.forEach(function(subValue) {
           result.add(baseClone(subValue, bitmask, customizer, subValue, value, stack));
         });
-
-        return result;
-      }
-
-      if (isMap(value)) {
+      } else if (isMap(value)) {
         value.forEach(function(subValue, key) {
           result.set(key, baseClone(subValue, bitmask, customizer, key, value, stack));
         });
-
-        return result;
       }
 
       var keysFunc = isFull
@@ -21623,8 +21626,8 @@ return jQuery;
         return;
       }
       baseFor(source, function(srcValue, key) {
+        stack || (stack = new Stack);
         if (isObject(srcValue)) {
-          stack || (stack = new Stack);
           baseMergeDeep(object, source, key, srcIndex, baseMerge, customizer, stack);
         }
         else {
@@ -23441,7 +23444,7 @@ return jQuery;
       return function(number, precision) {
         number = toNumber(number);
         precision = precision == null ? 0 : nativeMin(toInteger(precision), 292);
-        if (precision) {
+        if (precision && nativeIsFinite(number)) {
           // Shift with exponential notation to avoid floating-point issues.
           // See [MDN](https://mdn.io/round#Examples) for more details.
           var pair = (toString(number) + 'e').split('e'),
@@ -24624,7 +24627,7 @@ return jQuery;
     }
 
     /**
-     * Gets the value at `key`, unless `key` is "__proto__".
+     * Gets the value at `key`, unless `key` is "__proto__" or "constructor".
      *
      * @private
      * @param {Object} object The object to query.
@@ -24632,6 +24635,10 @@ return jQuery;
      * @returns {*} Returns the property value.
      */
     function safeGet(object, key) {
+      if (key === 'constructor' && typeof object[key] === 'function') {
+        return;
+      }
+
       if (key == '__proto__') {
         return;
       }
@@ -28432,6 +28439,7 @@ return jQuery;
           }
           if (maxing) {
             // Handle invocations in a tight loop.
+            clearTimeout(timerId);
             timerId = setTimeout(timerExpired, wait);
             return invokeFunc(lastCallTime);
           }
@@ -32818,9 +32826,12 @@ return jQuery;
       , 'g');
 
       // Use a sourceURL for easier debugging.
+      // The sourceURL gets injected into the source that's eval-ed, so be careful
+      // with lookup (in case of e.g. prototype pollution), and strip newlines if any.
+      // A newline wouldn't be a valid sourceURL anyway, and it'd enable code injection.
       var sourceURL = '//# sourceURL=' +
-        ('sourceURL' in options
-          ? options.sourceURL
+        (hasOwnProperty.call(options, 'sourceURL')
+          ? (options.sourceURL + '').replace(/[\r\n]/g, ' ')
           : ('lodash.templateSources[' + (++templateCounter) + ']')
         ) + '\n';
 
@@ -32853,7 +32864,9 @@ return jQuery;
 
       // If `variable` is not specified wrap a with-statement around the generated
       // code to add the data object to the top of the scope chain.
-      var variable = options.variable;
+      // Like with sourceURL, we take care to not check the option's prototype,
+      // as this configuration is a code injection vector.
+      var variable = hasOwnProperty.call(options, 'variable') && options.variable;
       if (!variable) {
         source = 'with (obj) {\n' + source + '\n}\n';
       }
@@ -35058,10 +35071,11 @@ return jQuery;
     baseForOwn(LazyWrapper.prototype, function(func, methodName) {
       var lodashFunc = lodash[methodName];
       if (lodashFunc) {
-        var key = (lodashFunc.name + ''),
-            names = realNames[key] || (realNames[key] = []);
-
-        names.push({ 'name': methodName, 'func': lodashFunc });
+        var key = lodashFunc.name + '';
+        if (!hasOwnProperty.call(realNames, key)) {
+          realNames[key] = [];
+        }
+        realNames[key].push({ 'name': methodName, 'func': lodashFunc });
       }
     });
 
@@ -38690,15 +38704,82 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(7),
+        _c("div", { staticClass: "col-md-4" }, [
+          _c("div", { staticClass: "form-group" }, [
+            _vm._v("\n            A member of 4 P's\n\n            "),
+            _vm._m(7),
+            _vm._v(" "),
+            _c(
+              "small",
+              {
+                staticClass: "form-text text-muted",
+                staticStyle: { color: "red !important" }
+              },
+              [_vm._v(_vm._s(_vm.array_of_errors.pi_guardian_occupation[0]))]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-md-4" }, [
+            _c("div", { staticClass: "form-group" }, [
+              _vm._v("\n            Enrolled as Grade\n            "),
+              _c("input", {
+                staticClass: "form-control",
+                attrs: { name: "pi_enrolled_as_grade", type: "text" }
+              }),
+              _vm._v(" "),
+              _c(
+                "small",
+                {
+                  staticClass: "form-text text-muted",
+                  staticStyle: { color: "red !important" }
+                },
+                [_vm._v(_vm._s(_vm.array_of_errors.pi_guardian_occupation[0]))]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-4" }, [
+            _c("div", { staticClass: "form-group" }, [
+              _vm._v("\n            School last attended\n            "),
+              _c("input", {
+                staticClass: "form-control",
+                attrs: { name: "pi_school_last_attended", type: "text" }
+              }),
+              _vm._v(" "),
+              _c(
+                "small",
+                {
+                  staticClass: "form-text text-muted",
+                  staticStyle: { color: "red !important" }
+                },
+                [_vm._v(_vm._s(_vm.array_of_errors.pi_school_last_attended[0]))]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-4" }, [
+            _c("div", { staticClass: "form-group" }, [
+              _vm._v("\n            School year\n            "),
+              _c("input", {
+                staticClass: "form-control",
+                attrs: { name: "pi_school_year", type: "text" }
+              }),
+              _vm._v(" "),
+              _c(
+                "small",
+                {
+                  staticClass: "form-text text-muted",
+                  staticStyle: { color: "red !important" }
+                },
+                [_vm._v(_vm._s(_vm.array_of_errors.pi_school_year[0]))]
+              )
+            ])
+          ])
+        ]),
         _vm._v(" "),
         _vm._m(8),
-        _vm._v(" "),
-        _vm._m(9),
-        _vm._v(" "),
-        _vm._m(10),
-        _vm._v(" "),
-        _vm._m(11),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
           _c(
@@ -38706,10 +38787,24 @@ var render = function() {
             { staticClass: "col-md-4", staticStyle: { "text-align": "right" } },
             [
               _vm._v(
-                "\n          Who help the student in doing homework?\n        "
+                "\n          Travel Time? (Check the nearest time from home to school):\n          "
+              ),
+              _c(
+                "small",
+                {
+                  staticClass: "form-text text-muted",
+                  staticStyle: { color: "red !important" }
+                },
+                [_vm._v(_vm._s(_vm.array_of_errors.es_travel_time[0]))]
               )
             ]
           ),
+          _vm._v(" "),
+          _vm._m(9),
+          _vm._v(" "),
+          _vm._m(10),
+          _vm._v(" "),
+          _vm._m(11),
           _vm._v(" "),
           _vm._m(12),
           _vm._v(" "),
@@ -38717,30 +38812,49 @@ var render = function() {
           _vm._v(" "),
           _vm._m(14),
           _vm._v(" "),
-          _vm._m(15),
-          _vm._v(" "),
-          _vm._m(16),
+          _vm._m(15)
+        ]),
+        _vm._v(" "),
+        _vm._m(16),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c(
+            "div",
+            { staticClass: "col-md-4", staticStyle: { "text-align": "right" } },
+            [
+              _vm._v("\n          Who help the student in doing homework? "),
+              _c(
+                "small",
+                {
+                  staticClass: "form-text text-muted",
+                  staticStyle: { color: "red !important" }
+                },
+                [_vm._v(_vm._s(_vm.array_of_errors.es_help_for_homework[0]))]
+              )
+            ]
+          ),
           _vm._v(" "),
           _vm._m(17),
           _vm._v(" "),
           _vm._m(18),
           _vm._v(" "),
-          _c(
-            "small",
-            {
-              staticClass: "form-text text-muted",
-              staticStyle: { color: "red !important" }
-            },
-            [_vm._v(_vm._s(_vm.array_of_errors.es_help_for_homework[0]))]
-          )
+          _vm._m(19),
+          _vm._v(" "),
+          _vm._m(20),
+          _vm._v(" "),
+          _vm._m(21),
+          _vm._v(" "),
+          _vm._m(22),
+          _vm._v(" "),
+          _vm._m(23)
         ]),
         _vm._v(" "),
-        _vm._m(19),
+        _vm._m(24),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-12" }, [
             _c("div", { staticClass: "form-group" }, [
-              _vm._m(20),
+              _vm._m(25),
               _vm._v(" "),
               _c(
                 "small",
@@ -38803,7 +38917,7 @@ var render = function() {
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-12" }, [
             _c("div", { staticClass: "form-group" }, [
-              _vm._m(21),
+              _vm._m(26),
               _vm._v(" "),
               _c(
                 "small",
@@ -38846,9 +38960,9 @@ var render = function() {
           _c("div", { staticClass: "col-md-12" }, [
             _c("div", { staticClass: "form-group" }, [
               _vm._v(
-                "\n            Does the student work to support schooling costs? \n            "
+                "\n            Does the student work to support schooling costs?\n            "
               ),
-              _vm._m(22),
+              _vm._m(27),
               _vm._v(" "),
               _c(
                 "small",
@@ -38887,10 +39001,10 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(23),
+        _vm._m(28),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
-          _vm._m(24),
+          _vm._m(29),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-3" }, [
             _c("div", { staticClass: "form-group" }, [
@@ -38964,7 +39078,7 @@ var render = function() {
           _c("div", { staticClass: "col-md-3" }, [
             _c("div", { staticClass: "form-group" }, [
               _vm._v("\n            Is Father alive?\n            "),
-              _vm._m(25),
+              _vm._m(30),
               _vm._v(" "),
               _c(
                 "small",
@@ -38982,7 +39096,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(26),
+        _vm._m(31),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-3" }, [
@@ -39082,10 +39196,10 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(27),
+        _vm._m(32),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
-          _vm._m(28),
+          _vm._m(33),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-3" }, [
             _c("div", { staticClass: "form-group" }, [
@@ -39159,7 +39273,7 @@ var render = function() {
           _c("div", { staticClass: "col-md-3" }, [
             _c("div", { staticClass: "form-group" }, [
               _vm._v("\n            Is Mother alive?\n            "),
-              _vm._m(29),
+              _vm._m(34),
               _vm._v(" "),
               _c(
                 "small",
@@ -39177,7 +39291,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(30),
+        _vm._m(35),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-3" }, [
@@ -39299,7 +39413,7 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _vm._m(31)
+          _vm._m(36)
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
@@ -39346,7 +39460,7 @@ var render = function() {
               _vm._v(
                 "\n            Did brother and sister dropped out of school?\n            "
               ),
-              _vm._m(32),
+              _vm._m(37),
               _vm._v(" "),
               _c(
                 "small",
@@ -39407,7 +39521,7 @@ var render = function() {
               _vm._v(
                 "\n            Are there family members who are affiliated with community organization?\n            "
               ),
-              _vm._m(33),
+              _vm._m(38),
               _vm._v(" "),
               _c(
                 "small",
@@ -39457,15 +39571,121 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(34),
+        _vm._m(39),
         _vm._v(" "),
-        _vm._m(35),
+        _c("div", { staticClass: "row" }, [
+          _c(
+            "div",
+            { staticClass: "col-md-2", staticStyle: { "text-align": "right" } },
+            [
+              _vm._v("\n          Check whicever applies:\n          "),
+              _c(
+                "small",
+                {
+                  staticClass: "form-text text-muted",
+                  staticStyle: { color: "red !important" }
+                },
+                [_vm._v(_vm._s(_vm.array_of_errors.iad_dwelling[0]))]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _vm._m(40),
+          _vm._v(" "),
+          _vm._m(41),
+          _vm._v(" "),
+          _vm._m(42),
+          _vm._v(" "),
+          _vm._m(43),
+          _vm._v(" "),
+          _vm._m(44)
+        ]),
         _vm._v(" "),
-        _vm._m(36),
+        _c("div", { staticClass: "row" }, [
+          _c(
+            "div",
+            { staticClass: "col-md-2", staticStyle: { "text-align": "right" } },
+            [
+              _vm._v("\n          Type of toilet:\n          "),
+              _c(
+                "small",
+                {
+                  staticClass: "form-text text-muted",
+                  staticStyle: { color: "red !important" }
+                },
+                [_vm._v(_vm._s(_vm.array_of_errors.iad_toilet_type[0]))]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _vm._m(45),
+          _vm._v(" "),
+          _vm._m(46),
+          _vm._v(" "),
+          _vm._m(47),
+          _vm._v(" "),
+          _vm._m(48)
+        ]),
         _vm._v(" "),
-        _vm._m(37),
+        _c("div", { staticClass: "row" }, [
+          _c(
+            "div",
+            { staticClass: "col-md-2", staticStyle: { "text-align": "right" } },
+            [
+              _vm._v("\n          Source of water:\n          "),
+              _c(
+                "small",
+                {
+                  staticClass: "form-text text-muted",
+                  staticStyle: { color: "red !important" }
+                },
+                [_vm._v(_vm._s(_vm.array_of_errors.iad_source_of_water[0]))]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _vm._m(49),
+          _vm._v(" "),
+          _vm._m(50),
+          _vm._v(" "),
+          _vm._m(51),
+          _vm._v(" "),
+          _vm._m(52),
+          _vm._v(" "),
+          _vm._m(53)
+        ]),
         _vm._v(" "),
-        _vm._m(38),
+        _c("div", { staticClass: "row" }, [
+          _c(
+            "div",
+            { staticClass: "col-md-2", staticStyle: { "text-align": "right" } },
+            [
+              _vm._v("\n          Check if available at home:\n            "),
+              _c(
+                "small",
+                {
+                  staticClass: "form-text text-muted",
+                  staticStyle: { color: "red !important" }
+                },
+                [_vm._v(_vm._s(_vm.array_of_errors.iad_source_of_water[0]))]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _vm._m(54),
+          _vm._v(" "),
+          _vm._m(55),
+          _vm._v(" "),
+          _vm._m(56),
+          _vm._v(" "),
+          _vm._m(57),
+          _vm._v(" "),
+          _vm._m(58),
+          _vm._v(" "),
+          _vm._m(59),
+          _vm._v(" "),
+          _vm._m(60)
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-12" }, [
@@ -39526,7 +39746,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(39)
+        _vm._m(61)
       ]
     )
   ])
@@ -39658,56 +39878,15 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-4" }, [
-      _c("div", { staticClass: "form-group" }, [
-        _vm._v("\n            A member of 4 P's\n            "),
-        _c(
-          "select",
-          { staticClass: "form-control", attrs: { name: "pi_member_of_4ps" } },
-          [
-            _c("option", { attrs: { value: "No" } }, [_vm._v("No")]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "Yes" } }, [_vm._v("Yes")])
-          ]
-        )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-4" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _vm._v("\n            Enrolled as Grade\n            "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: { name: "pi_enrolled_as_grade", type: "text" }
-          })
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-4" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _vm._v("\n            School last attended\n            "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: { name: "pi_school_last_attended", type: "text" }
-          })
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-4" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _vm._v("\n            School year\n            "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: { name: "pi_school_year", type: "text" }
-          })
-        ])
-      ])
-    ])
+    return _c(
+      "select",
+      { staticClass: "form-control", attrs: { name: "pi_member_of_4ps" } },
+      [
+        _c("option", { attrs: { value: "No" } }, [_vm._v("No")]),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "Yes" } }, [_vm._v("Yes")])
+      ]
+    )
   },
   function() {
     var _vm = this
@@ -39725,109 +39904,113 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c(
-        "div",
-        { staticClass: "col-md-4", staticStyle: { "text-align": "right" } },
-        [
-          _vm._v(
-            "\n          Travel Time? (Check the nearest time from home to school):\n        "
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-1" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            staticClass: "form-check-input",
-            attrs: {
-              name: "es_travel_time",
-              type: "checkbox",
-              value: "15 minutes"
-            }
-          }),
-          _vm._v("\n            15 minutes\n          ")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-1" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            staticClass: "form-check-input",
-            attrs: {
-              name: "es_travel_time",
-              type: "checkbox",
-              value: "30 minutes"
-            }
-          }),
-          _vm._v("\n            30 minutes\n          ")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-1" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            staticClass: "form-check-input",
-            attrs: {
-              name: "es_travel_time",
-              type: "checkbox",
-              value: "45 minutes"
-            }
-          }),
-          _vm._v("\n            45 minutes\n          ")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-1" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            staticClass: "form-check-input",
-            attrs: { name: "es_travel_time", type: "checkbox", value: "1 hour" }
-          }),
-          _vm._v("\n            1 hour\n          ")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-1" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            staticClass: "form-check-input",
-            attrs: {
-              name: "es_travel_time",
-              type: "checkbox",
-              value: "1 ½ hour"
-            }
-          }),
-          _vm._v("\n            1 ½ hour\n          ")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-1" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            staticClass: "form-check-input",
-            attrs: {
-              name: "es_travel_time",
-              type: "checkbox",
-              value: "2 hours"
-            }
-          }),
-          _vm._v("\n            2 hours\n          ")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-2" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            staticClass: "form-check-input",
-            attrs: {
-              name: "es_travel_time",
-              type: "checkbox",
-              value: "over 2 hours"
-            }
-          }),
-          _vm._v("\n            over 2 hours\n          ")
-        ])
+    return _c("div", { staticClass: "col-md-1" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("input", {
+          staticClass: "form-check-input",
+          attrs: {
+            name: "es_travel_time",
+            type: "checkbox",
+            value: "15 minutes"
+          }
+        }),
+        _vm._v("\n            15 minutes\n          ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-1" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("input", {
+          staticClass: "form-check-input",
+          attrs: {
+            name: "es_travel_time",
+            type: "checkbox",
+            value: "30 minutes"
+          }
+        }),
+        _vm._v("\n            30 minutes\n          ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-1" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("input", {
+          staticClass: "form-check-input",
+          attrs: {
+            name: "es_travel_time",
+            type: "checkbox",
+            value: "45 minutes"
+          }
+        }),
+        _vm._v("\n            45 minutes\n          ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-1" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("input", {
+          staticClass: "form-check-input",
+          attrs: { name: "es_travel_time", type: "checkbox", value: "1 hour" }
+        }),
+        _vm._v("\n            1 hour\n          ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-1" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("input", {
+          staticClass: "form-check-input",
+          attrs: { name: "es_travel_time", type: "checkbox", value: "1 ½ hour" }
+        }),
+        _vm._v("\n            1 ½ hour\n          ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-1" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("input", {
+          staticClass: "form-check-input",
+          attrs: { name: "es_travel_time", type: "checkbox", value: "2 hours" }
+        }),
+        _vm._v("\n            2 hours\n          ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-2" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("input", {
+          staticClass: "form-check-input",
+          attrs: {
+            name: "es_travel_time",
+            type: "checkbox",
+            value: "over 2 hours"
+          }
+        }),
+        _vm._v("\n            over 2 hours\n          ")
       ])
     ])
   },
@@ -40460,85 +40643,13 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c(
-        "div",
-        { staticClass: "col-md-2", staticStyle: { "text-align": "right" } },
-        [_vm._v("\n          Check whicever applies:\n        ")]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-1" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            staticClass: "form-check-input",
-            attrs: {
-              name: "iad_dwelling",
-              value: "owns_house",
-              type: "checkbox"
-            }
-          }),
-          _vm._v("\n            owns house\n          ")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-1" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            staticClass: "form-check-input",
-            attrs: {
-              name: "iad_dwelling",
-              value: "rents_house",
-              type: "checkbox"
-            }
-          }),
-          _vm._v("\n            rents house\n          ")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-1" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            staticClass: "form-check-input",
-            attrs: {
-              name: "iad_dwelling",
-              value: "shares_house",
-              type: "checkbox"
-            }
-          }),
-          _vm._v("\n            shares house\n          ")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-1" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            staticClass: "form-check-input",
-            attrs: {
-              name: "iad_dwelling",
-              value: "lives_of_street",
-              type: "checkbox"
-            }
-          }),
-          _vm._v("\n            lives of street\n          ")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            staticClass: "form-check-input",
-            attrs: { name: "iad_dwelling", value: "others", type: "checkbox" }
-          }),
-          _vm._v("\n            Others\n            "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: {
-              name: "iad_dwelling_specify",
-              type: "text",
-              placeholder: "Please specify"
-            }
-          })
-        ])
+    return _c("div", { staticClass: "col-md-1" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("input", {
+          staticClass: "form-check-input",
+          attrs: { name: "iad_dwelling", value: "owns_house", type: "checkbox" }
+        }),
+        _vm._v("\n            owns house\n          ")
       ])
     ])
   },
@@ -40546,67 +40657,17 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c(
-        "div",
-        { staticClass: "col-md-2", staticStyle: { "text-align": "right" } },
-        [_vm._v("\n          Type of toilet: \n        ")]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-1" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            staticClass: "form-check-input",
-            attrs: {
-              name: "iad_toilet_type",
-              value: "water_sailed",
-              type: "checkbox"
-            }
-          }),
-          _vm._v("\n            water sailed\n          ")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-1" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            staticClass: "form-check-input",
-            attrs: { name: "iad_toilet_type", value: "flush", type: "checkbox" }
-          }),
-          _vm._v("\n            flush\n          ")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-1" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            staticClass: "form-check-input",
-            attrs: { name: "iad_toilet_type", value: "pit", type: "checkbox" }
-          }),
-          _vm._v("\n            pit\n          ")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-7" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            staticClass: "form-check-input",
-            attrs: {
-              name: "iad_toilet_type",
-              value: "others",
-              type: "checkbox"
-            }
-          }),
-          _vm._v("\n            Others\n            "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: {
-              name: "iad_toilet_type_specify",
-              type: "text",
-              placeholder: "Please specify"
-            }
-          })
-        ])
+    return _c("div", { staticClass: "col-md-1" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("input", {
+          staticClass: "form-check-input",
+          attrs: {
+            name: "iad_dwelling",
+            value: "rents_house",
+            type: "checkbox"
+          }
+        }),
+        _vm._v("\n            rents house\n          ")
       ])
     ])
   },
@@ -40614,89 +40675,17 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c(
-        "div",
-        { staticClass: "col-md-2", staticStyle: { "text-align": "right" } },
-        [_vm._v("\n          Source of water:\n        ")]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-1" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            staticClass: "form-check-input",
-            attrs: {
-              name: "iad_source_of_water",
-              value: "faucet_tap",
-              type: "checkbox"
-            }
-          }),
-          _vm._v("\n            faucet/tap\n          ")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-1" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            staticClass: "form-check-input",
-            attrs: {
-              name: "iad_source_of_water",
-              value: "deep_well",
-              type: "checkbox"
-            }
-          }),
-          _vm._v("\n            deep well\n          ")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-2" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            staticClass: "form-check-input",
-            attrs: {
-              name: "iad_source_of_water",
-              value: "fetched_from_fetched",
-              type: "checkbox"
-            }
-          }),
-          _vm._v("\n            fetched from outside\n          ")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-1" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            staticClass: "form-check-input",
-            attrs: {
-              name: "iad_source_of_water",
-              value: "bought",
-              type: "checkbox"
-            }
-          }),
-          _vm._v("\n            bought\n          ")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-5" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            staticClass: "form-check-input",
-            attrs: {
-              name: "iad_source_of_water",
-              value: "others",
-              type: "checkbox"
-            }
-          }),
-          _vm._v("\n            Others\n            "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: {
-              name: "iad_source_of_water_specify",
-              type: "text",
-              placeholder: "Please specify"
-            }
-          })
-        ])
+    return _c("div", { staticClass: "col-md-1" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("input", {
+          staticClass: "form-check-input",
+          attrs: {
+            name: "iad_dwelling",
+            value: "shares_house",
+            type: "checkbox"
+          }
+        }),
+        _vm._v("\n            shares house\n          ")
       ])
     ])
   },
@@ -40704,117 +40693,335 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c(
-        "div",
-        { staticClass: "col-md-2", staticStyle: { "text-align": "right" } },
-        [_vm._v("\n          Check if available at home:\n        ")]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-1" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            staticClass: "form-check-input",
-            attrs: {
-              name: "iad_objects_at_home",
-              value: "tv",
-              type: "checkbox"
-            }
-          }),
-          _vm._v("\n            TV\n          ")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-1" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            staticClass: "form-check-input",
-            attrs: {
-              name: "iad_objects_at_home",
-              value: "radio",
-              type: "checkbox"
-            }
-          }),
-          _vm._v("\n            radio\n          ")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-1" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            staticClass: "form-check-input",
-            attrs: {
-              name: "iad_objects_at_home",
-              value: "books",
-              type: "checkbox"
-            }
-          }),
-          _vm._v("\n            books\n          ")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-1" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            staticClass: "form-check-input",
-            attrs: {
-              name: "iad_objects_at_home",
-              value: "computer",
-              type: "checkbox"
-            }
-          }),
-          _vm._v("\n            computer\n          ")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-1" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            staticClass: "form-check-input",
-            attrs: {
-              name: "iad_objects_at_home",
-              value: "magazines",
-              type: "checkbox"
-            }
-          }),
-          _vm._v("\n            magazines\n          ")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-1" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            staticClass: "form-check-input",
-            attrs: {
-              name: "iad_objects_at_home",
-              value: "newspaper",
-              type: "checkbox"
-            }
-          }),
-          _vm._v("\n            newspaper\n          ")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-4" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            staticClass: "form-check-input",
-            attrs: {
-              name: "iad_objects_at_home",
-              value: "others",
-              type: "checkbox"
-            }
-          }),
-          _vm._v("\n            Others\n            "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: {
-              name: "iad_objects_at_home_specify",
-              type: "text",
-              placeholder: "Please specify"
-            }
-          })
-        ])
+    return _c("div", { staticClass: "col-md-1" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("input", {
+          staticClass: "form-check-input",
+          attrs: {
+            name: "iad_dwelling",
+            value: "lives_of_street",
+            type: "checkbox"
+          }
+        }),
+        _vm._v("\n            lives of street\n          ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-6" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("input", {
+          staticClass: "form-check-input",
+          attrs: { name: "iad_dwelling", value: "others", type: "checkbox" }
+        }),
+        _vm._v("\n            Others\n            "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            name: "iad_dwelling_specify",
+            type: "text",
+            placeholder: "Please specify"
+          }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-1" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("input", {
+          staticClass: "form-check-input",
+          attrs: {
+            name: "iad_toilet_type",
+            value: "water_sailed",
+            type: "checkbox"
+          }
+        }),
+        _vm._v("\n            water sailed\n          ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-1" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("input", {
+          staticClass: "form-check-input",
+          attrs: { name: "iad_toilet_type", value: "flush", type: "checkbox" }
+        }),
+        _vm._v("\n            flush\n          ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-1" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("input", {
+          staticClass: "form-check-input",
+          attrs: { name: "iad_toilet_type", value: "pit", type: "checkbox" }
+        }),
+        _vm._v("\n            pit\n          ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-7" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("input", {
+          staticClass: "form-check-input",
+          attrs: { name: "iad_toilet_type", value: "others", type: "checkbox" }
+        }),
+        _vm._v("\n            Others\n            "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            name: "iad_toilet_type_specify",
+            type: "text",
+            placeholder: "Please specify"
+          }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-1" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("input", {
+          staticClass: "form-check-input",
+          attrs: {
+            name: "iad_source_of_water",
+            value: "faucet_tap",
+            type: "checkbox"
+          }
+        }),
+        _vm._v("\n            faucet/tap\n          ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-1" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("input", {
+          staticClass: "form-check-input",
+          attrs: {
+            name: "iad_source_of_water",
+            value: "deep_well",
+            type: "checkbox"
+          }
+        }),
+        _vm._v("\n            deep well\n          ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-2" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("input", {
+          staticClass: "form-check-input",
+          attrs: {
+            name: "iad_source_of_water",
+            value: "fetched_from_fetched",
+            type: "checkbox"
+          }
+        }),
+        _vm._v("\n            fetched from outside\n          ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-1" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("input", {
+          staticClass: "form-check-input",
+          attrs: {
+            name: "iad_source_of_water",
+            value: "bought",
+            type: "checkbox"
+          }
+        }),
+        _vm._v("\n            bought\n          ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-5" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("input", {
+          staticClass: "form-check-input",
+          attrs: {
+            name: "iad_source_of_water",
+            value: "others",
+            type: "checkbox"
+          }
+        }),
+        _vm._v("\n            Others\n            "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            name: "iad_source_of_water_specify",
+            type: "text",
+            placeholder: "Please specify"
+          }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-1" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("input", {
+          staticClass: "form-check-input",
+          attrs: { name: "iad_objects_at_home", value: "tv", type: "checkbox" }
+        }),
+        _vm._v("\n            TV\n          ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-1" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("input", {
+          staticClass: "form-check-input",
+          attrs: {
+            name: "iad_objects_at_home",
+            value: "radio",
+            type: "checkbox"
+          }
+        }),
+        _vm._v("\n            radio\n          ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-1" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("input", {
+          staticClass: "form-check-input",
+          attrs: {
+            name: "iad_objects_at_home",
+            value: "books",
+            type: "checkbox"
+          }
+        }),
+        _vm._v("\n            books\n          ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-1" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("input", {
+          staticClass: "form-check-input",
+          attrs: {
+            name: "iad_objects_at_home",
+            value: "computer",
+            type: "checkbox"
+          }
+        }),
+        _vm._v("\n            computer\n          ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-1" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("input", {
+          staticClass: "form-check-input",
+          attrs: {
+            name: "iad_objects_at_home",
+            value: "magazines",
+            type: "checkbox"
+          }
+        }),
+        _vm._v("\n            magazines\n          ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-1" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("input", {
+          staticClass: "form-check-input",
+          attrs: {
+            name: "iad_objects_at_home",
+            value: "newspaper",
+            type: "checkbox"
+          }
+        }),
+        _vm._v("\n            newspaper\n          ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-4" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("input", {
+          staticClass: "form-check-input",
+          attrs: {
+            name: "iad_objects_at_home",
+            value: "others",
+            type: "checkbox"
+          }
+        }),
+        _vm._v("\n            Others\n            "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            name: "iad_objects_at_home_specify",
+            type: "text",
+            placeholder: "Please specify"
+          }
+        })
       ])
     ])
   },
@@ -40839,7 +41046,7 @@ var staticRenderFns = [
                 staticClass: "fas fa-long-arrow-alt-left",
                 staticStyle: { "margin-right": "5px" }
               }),
-              _vm._v(" \n                Back to list\n              ")
+              _vm._v("\n                Back to list\n              ")
             ]
           )
         ])
@@ -53301,8 +53508,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\student\Documents\ken\mnhs\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\student\Documents\ken\mnhs\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\delapazkh\Documents\mnhs\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\delapazkh\Documents\mnhs\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
