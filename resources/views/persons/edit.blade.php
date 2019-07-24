@@ -11,12 +11,12 @@
         <div class="card">
           <div class="card-header">
             <h5 class="card-category">
-              Enroll a student
+              Edit student's enrollment data
             </h5>
 
           </div>
           <div class="card-body">
-            <enrollment-form></enrollment-form>
+            <edit-students-form></edit-students-form>
           </div>
         </div>
       </div>

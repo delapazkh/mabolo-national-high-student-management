@@ -22,9 +22,9 @@ class StudentsFamilyDetailsTable extends Migration
             $table->integer('numberofBrothers')->nullable(false);
             $table->integer('numberofSisters')->nullable(false);
             $table->string('didBrother_SisterDroppedoutofSchool', 3)->nullable(false)->default('NO');
-            $table->string('reason', 50);
+            $table->string('reason', 50)->nullable(true);
             $table->string('familyMemComOrgaAffiliated', 3)->nullable(false)->default('NO');
-            $table->string('organisationName', 90);
+            $table->string('organisationName', 90)->nullable(true);
             $table->timestamps();
         });
     }

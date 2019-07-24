@@ -15,7 +15,7 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Lukas Kvien',
             'email' => 'lukaskvien@dayrep.com',
-            'role_id' => 7,
+            'role_id' => 1,
             'email_verified_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'password' => bcrypt('123456'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
@@ -24,7 +24,7 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'John Doe',
             'email' => 'doejh@gmail.com',
-            'role_id' => 8,
+            'role_id' => 2,
             'email_verified_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'password' => bcrypt('123456'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),

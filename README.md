@@ -22,3 +22,7 @@
 
 ## For !local! development only  
 11. `npm run watch` to run vue.js and compile the javascripts   
+
+
+## For re-setting with existing database  
+1. `php artisan migrate:fresh --path=database/migrations/2019_07_15_151545_roles_table.php && php artisan migrate && php artisan migrate --path=database/migrations/persons && php artisan migrate --path=database/migrations/students && php artisan db:seed`  

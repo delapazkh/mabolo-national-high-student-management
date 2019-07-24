@@ -13,7 +13,7 @@ class OneThreeSevenController extends Controller
      */
     public function index()
     {
-        return view('forms.one-three-seven');
+        return view('forms.one-three-seven.index');
     }
 
     /**

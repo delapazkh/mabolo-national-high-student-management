@@ -29,7 +29,7 @@ class EnrollmentController extends Controller
      */
     public function index()
     {
-        return view('persons.index');
+        // we dont use this
     }
 
     /**
@@ -39,7 +39,7 @@ class EnrollmentController extends Controller
      */
     public function create()
     {
-        return view('forms.enrollment');
+        return view('forms.enrollment.create');
     }
 
     /**
@@ -82,43 +82,47 @@ class EnrollmentController extends Controller
             'es_travel_time'             => 'required',
             'es_transportation'          => 'required',
             'es_others_specify'          => 'required_if:es_transportation,==,others',
-            'es_transportation'          => 'required_if:es_transportation,!=,others',
             'es_help_for_homework'       => 'required',
-            'es_student_dropout_school'  => 'required|in:YES,NO',
-            'es_how_long_dropout'        => 'required',
-            'es_dropout_reasons'         => 'required',
-            'es_stay_with_parents'       => 'required|in:YES,NO',
-            'es_relationship_staying'    => 'required',
-            'es_work_to_support'         => 'required|in:YES,NO',
-            'es_work_of_student'         => 'required',
+
+            'es_student_dropout_school'  => 'required|in:Yes,No',
+            'es_how_long_dropout'        => 'required_if:es_student_dropout_school,==,Yes',
+            'es_dropout_reasons'         => 'required_if:es_student_dropout_school,==,Yes',
+
+            'es_stay_with_parents'       => 'required|in:Yes,No',
+            'es_relationship_staying'    => 'required_if:es_stay_with_parents,==,Yes',
+
+            'es_work_to_support'         => 'required|in:Yes,No',
+            'es_work_of_student'         => 'required_if:es_work_to_support,==,Yes',
 
             // Family and Home Situation
             'fhs_fathers_family_name'    => 'required',
             'fhs_fathers_given_name'     => 'required',
             'fhs_fathers_middle_name'    => 'required',
-            'fhs_fathers_age'            => 'required',
-            'fhs_fathers_death_status'   => 'required|in:YES,NO',
-            'fhs_fathers_religion'       => 'required',
-            'fhs_fathers_occupation'     => 'required',
-            'fhs_fathers_monthly_income' => 'required',
-            'fhs_fathers_edu_attainment' => 'required|in:elementary_level,elementary_grad,highschool_level,highschool_grad,college_level,college_grad',
-            'fhs_mothers_family_name'    => 'required',
-            'fhs_mothers_given_name'     => 'required',
-            'fhs_mothers_middle_name'    => 'required',
-            'fhs_mothers_age'            => '',
+            'fhs_fathers_death_status'   => 'required|in:Yes,No',
+            'fhs_fathers_age'            => 'required_if:fhs_fathers_death_status,==,Yes',
+            'fhs_fathers_religion'       => 'required_if:fhs_fathers_death_status,==,Yes',
+            'fhs_fathers_occupation'     => 'required_if:fhs_fathers_death_status,==,Yes',
+            'fhs_fathers_monthly_income' => 'required_if:fhs_fathers_death_status,==,Yes',
+            'fhs_fathers_edu_attainment' => 'required_if:fhs_fathers_death_status,==,Yes|in:elementary_level,elementary_grad,highschool_level,highschool_grad,college_level,college_grad',
+            
+            'fhs_mothers_family_name'   => 'required',
+            'fhs_mothers_given_name'    => 'required',
+            'fhs_mothers_middle_name'   => 'required',
+            'fhs_mothers_death_status'  => 'required|in:Yes,No',
+            'fhs_mothers_age'           => 'required_if:fhs_mothers_death_status,==,Yes',
+            'fhs_mothers_religion'      => 'required_if:fhs_mothers_death_status,==,Yes',
+            'fhs_mothers_occupation'    => 'required_if:fhs_mothers_death_status,==,Yes',
+            'fhs_mothers_monthly_income'=> 'required_if:fhs_mothers_death_status,==,Yes',
+            'fhs_mothers_edu_attainment'=> 'required_if:fhs_mothers_death_status,==,Yes|in:elementary_level,elementary_grad,highschool_level,highschool_grad,college_level,college_grad',
 
-            'fhs_mothers_death_status'  => 'required|in:YES,NO',
-            'fhs_mothers_religion'      => 'required',
-            'fhs_mothers_occupation'    => 'required',
-            'fhs_mothers_monthly_income'=> 'required',
-            'fhs_mothers_edu_attainment'=> 'required|in:elementary_level,elementary_grad,highschool_level,highschool_grad,college_level,college_grad',
             'fhs_number_brothers'       => 'required',
             'fhs_number_sisters'        => 'required',
 
-            'fhs_brother_sister_dropout_school'         => 'required|in:YES,NO',
-            'fhs_brother_sister_dropout_school_reason'  => 'required|in:YES,NO',
-            'fhs_family_members_affiliated_with_community_organization'  => 'required|in:YES,NO',
-            'fhs_name_of_organization'                  => 'required',
+            'fhs_brother_sister_dropout_school'         => 'required|in:Yes,No',
+            'fhs_brother_sister_dropout_school_reason'  => 'required_if:fhs_brother_sister_dropout_school,==,Yes',
+
+            'fhs_family_members_affiliated_with_community_organization'  => 'required|in:Yes,No',
+            'fhs_name_of_organization'                  => 'required_if:fhs_family_members_affiliated_with_community_organization,==,Yes',
 
             // Information about dwelling
             'iad_dwelling'                => 'required',
@@ -133,10 +137,6 @@ class EnrollmentController extends Controller
             // Extra Curricular
             'extra_curricular'            => 'required',
         ]);
-        if ($validator->fails()) {
-            return response(["message"=> $validator->messages()], 400)
-              ->header('Content-Type', 'application/json');
-        }
 
         try {
 
@@ -288,7 +288,7 @@ class EnrollmentController extends Controller
                   ->header('Content-Type', 'application/json');
         }
 
-        return response(["message"=>"Successfully Enrolled!"], 200)
+        return response(["message" => "Successfully Enrolled!", "id" => intval($request->input('pi_student_id'))], 200)
                   ->header('Content-Type', 'application/json');
     }
 
@@ -300,7 +300,7 @@ class EnrollmentController extends Controller
      */
     public function show($id)
     {
-        //
+        // we dont use this
     }
 
     /**
@@ -311,7 +311,7 @@ class EnrollmentController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('forms.enrollment.edit');
     }
 
     /**
@@ -323,7 +323,8 @@ class EnrollmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return response(["message" => "Successfully save changes! not really, check backend"], 200)
+                  ->header('Content-Type', 'application/json');
     }
 
     /**

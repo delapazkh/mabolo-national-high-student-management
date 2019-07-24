@@ -14,7 +14,7 @@ class PersonsController extends Controller
      */
     public function index()
     {
-        // nothing to do
+        return view('persons.index');
     }
 
     public function persons()
@@ -31,7 +31,7 @@ class PersonsController extends Controller
      */
     public function create()
     {
-        //
+        // we dont use this
     }
 
     /**
@@ -42,7 +42,7 @@ class PersonsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // we dont use this
     }
 
     /**
@@ -53,7 +53,20 @@ class PersonsController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('persons.show');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showAPI($id)
+    {
+        $person = Persons::find($id);
+        return response($person, 200)
+                  ->header('Content-Type', 'application/json');
     }
 
     /**
@@ -64,7 +77,7 @@ class PersonsController extends Controller
      */
     public function edit($id)
     {
-        //
+        // we dont use this
     }
 
     /**
@@ -76,7 +89,7 @@ class PersonsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // we dont use this
     }
 
     /**

@@ -25,14 +25,15 @@ class PersonsEducationalSituationTable extends Migration
 
             $table->string('studentAleadyDroppedOutofSchool', 3)->default('NO');
             // if yes
-            $table->string('howLong', 15);
-            $table->string('reason', 30);
-            $table->string('withParents', 3)->default('YES');
+            $table->string('howLong', 15)->nullable(true);
+            $table->string('reason', 30)->nullable(true);
 
+            $table->string('withParents', 3)->default('YES');
             // if no
-            $table->string('studentRelationship', 50);
+            $table->string('studentRelationship', 50)->nullable(true);
+
             $table->string('studentSelfSupport', 3)->default('NO');
-            $table->string('studentWork', 50);
+            $table->string('studentWork', 50)->nullable(true);
             $table->timestamps();
         });
     }

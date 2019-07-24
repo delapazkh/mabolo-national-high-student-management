@@ -23,13 +23,13 @@ class PersonsMotherSStudentAliveTable extends Migration
             $table->string('lastName', 30);
             $table->string('givenName', 20);
             $table->string('middleName', 10);
-            $table->string('age', 25);
             $table->string('deathStatus', 5)->nullable(false)->default('false');
+            $table->string('age', 25)->nullable(true);
             $table->date('motherDOB')->nullable(true);
-            $table->string('religion', 15)->nullable(false);
-            $table->string('occupation', 20)->nullable(false);
-            $table->decimal('monthlyIncome', 15,2)->nullable(false);
-            $table->string('educationLevel', 35)->nullable(false);
+            $table->string('religion', 15)->nullable(true);
+            $table->string('occupation', 20)->nullable(true);
+            $table->decimal('monthlyIncome', 15,2)->nullable(true);
+            $table->string('educationLevel', 35)->nullable(true);
             $table->string('skills', 10)->nullable(true);
             $table->string('course', 10)->nullable(true);
             $table->float('grade')->nullable(true);

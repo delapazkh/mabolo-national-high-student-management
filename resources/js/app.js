@@ -23,9 +23,12 @@ let $ = JQuery
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('enrollment-form', require('./components/Enrollment/Enrollment.vue').default);
-Vue.component('one-three-seven-form', require('./components/Forms/OneThreeSeven.vue').default);
-Vue.component('person-list', require('./components/Persons/Persons.vue').default);
+Vue.component('one-three-seven-form', require('./components/Forms/OneThreeSeven/Create.vue').default);
+Vue.component('enrollment-form', require('./components/Forms/Enrollment/Create.vue').default);
+Vue.component('edit-enrollment-form', require('./components/Forms/Enrollment/Edit.vue').default);
+
+Vue.component('person-list', require('./components/Persons/Get.vue').default);
+Vue.component('person', require('./components/Persons/Show.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -67,8 +67,14 @@
               <p>Roles</p>
             </a>
           </li>
+          <li class="{{ (Request::segment(1) == 'students') ? 'active' : '' }}">
+            <a href="/students">
+              <i class="now-ui-icons education_atom"></i>
+              <p>Students</p>
+            </a>
+          </li>
           <li class="{{ (Request::segment(2) == 'enrollment') ? 'active' : '' }}">
-            <a href="/forms/enrollment">
+            <a href="/forms/enrollment/create">
               <i class="fab fa-elementor"></i>
               <p>Enrollment Form</p>
             </a>
