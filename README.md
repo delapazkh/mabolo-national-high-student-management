@@ -7,7 +7,7 @@
 2. `npm install` (if local)     
 3.  Please copy `.env.example` and create another `.env`  
 4. `php artisan key:generate`   
-5. Create database name mnhs    
+5. Create database name `mnhs` and make sure the `mnhs` database has no tables before going to step #6      
 6. `php artisan migrate --path=database/migrations/2019_07_15_151545_roles_table.php`  
 7. `php artisan migrate`  
 8. `php artisan migrate --path=database/migrations/persons && php artisan migrate --path=database/migrations/students`   
