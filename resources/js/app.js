@@ -12,6 +12,8 @@ import axios from 'axios'
 import JQuery from 'jquery'
 let $ = JQuery
 
+import VModal from 'vue-js-modal'
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -30,6 +32,7 @@ Vue.component('edit-enrollment-form', require('./components/Forms/Enrollment/Edi
 Vue.component('person-list', require('./components/Persons/Get.vue').default);
 Vue.component('person', require('./components/Persons/Show.vue').default);
 
+Vue.use(VModal)
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

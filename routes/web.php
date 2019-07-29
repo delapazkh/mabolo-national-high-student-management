@@ -48,6 +48,7 @@ Route::get('/students', 'PersonsController@index')->name('persons-index'); //HTM
 Route::get('/students/{id}', 'PersonsController@show')->name('persons-show'); // HTML view
 Route::get('/students/get/all', 'PersonsController@persons')->name('persons-get-api'); // API call
 Route::get('/students/{id}/show', 'PersonsController@showAPI')->name('persons-show-api'); // API call
+Route::get('/students/{keyword}/search', 'PersonsController@search')->name('persons-search-api'); // API call
 
 // We do not use this methods because:
 // "/students/create"  is  "/forms/enrollment/create"

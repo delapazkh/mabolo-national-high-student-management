@@ -45,6 +45,13 @@ class PersonsController extends Controller
         // we dont use this
     }
 
+    public function search($keyword)
+    {
+        $persons = Persons::where('givenName', 'like', '%'.$keyword.'%')->orWhere('middleName', 'like', '%'.$keyword.'%')->get();
+        return response($persons, 200)
+                  ->header('Content-Type', 'application/json');
+    }
+
     /**
      * Display the specified resource.
      *
