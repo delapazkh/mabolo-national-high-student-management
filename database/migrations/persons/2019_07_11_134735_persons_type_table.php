@@ -15,7 +15,7 @@ class PersonsTypeTable extends Migration
     {
         Schema::create('persons_type', function (Blueprint $table) {
             $table->integer('id')->primary();
-            $table->string('personTypeDescription', 30);
+            $table->string('personTypeDescription', 255);
 
             $table->foreign('id')->references('id')->on('persons')
                 ->onDelete('cascade')

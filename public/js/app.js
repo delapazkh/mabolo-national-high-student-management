@@ -2840,6 +2840,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     var _array_of_errors;
@@ -2889,6 +2905,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         iad_objects_at_home: [],
         iad_source_of_water: [],
         iad_toilet_type: [],
+        pi_name_extension: [],
+        pi_sex: [],
         pi_birthdate: [],
         pi_direction_one: [],
         pi_direction_three: [],
@@ -2972,6 +2990,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         iad_objects_at_home: [''],
         iad_source_of_water: [''],
         iad_toilet_type: [''],
+        pi_name_extension: [''],
+        pi_sex: [''],
         pi_birthdate: [''],
         pi_direction_one: [''],
         pi_direction_three: [''],
@@ -5652,19 +5672,87 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      success_message: "",
+      error_message: "",
       // step 1
       step1: true,
       students: [],
       search_keyword: '',
-      choosen_student: [],
       // step 2
       step2: false,
       // success_message: "",
       // error_message: "",
       // 137 form
+      student_id: '',
       learners_info_last_name: '',
       learners_info_first_name: '',
       learners_info_name_extension: '',
@@ -5672,6 +5760,28 @@ __webpack_require__.r(__webpack_exports__);
       learners_info_lrn: '',
       learners_info_birthdate: '',
       learners_info_sex: '',
+      // Eligibility
+      eligibility: {
+        addressOfSchool: '',
+        citation: '',
+        elementarySchoolCompleter: 'off',
+        generalAverage: '',
+        nameOfElementarySchool: '',
+        schoolID: ''
+      },
+      eligibility_exist: false,
+      // Other credentials presented
+      ocp: {
+        ALS_A_and_E_passer: '',
+        ALS_A_and_E_passerRating: '',
+        dateExaminationOrAssesment: '',
+        nameAddressTestingCenter: '',
+        others: '',
+        othersSpecify: '',
+        peptPasser: 'off',
+        peptPasserRating: ''
+      },
+      ocp_exist: false,
       // Certification
       array1_cert_fullname: '',
       array1_cert_LRN: '',
@@ -5681,7 +5791,19 @@ __webpack_require__.r(__webpack_exports__);
       array1_cert_last_school_year_attended: '',
       array1_cert_date: '',
       array1_cert_principal_name: '',
-      array1_cert_affix_school_here: ''
+      array1_cert_affix_school_here: '',
+      array_of_errors: {
+        date_of_examination: [""],
+        eligibility_address_of_school: [""],
+        eligibility_citation: [""],
+        eligibility_general_average: [""],
+        eligibility_name_of_elementary_school: [""],
+        eligibility_school_id: [""],
+        learners_info_lrn: [""],
+        learners_info_name_extension: [""],
+        learners_info_sex: [""],
+        name_address_of_testing_center: [""]
+      }
     };
   },
   created: function created() {
@@ -5704,26 +5826,46 @@ __webpack_require__.r(__webpack_exports__);
     },
     chooseStudent: function chooseStudent(id) {
       axios.get('/students/' + id + '/show').then(function (response) {
-        this.choosen_student = response.data;
-        console.log(this.choosen_student);
+        var person = response.data.person;
+        var school_data = response.data.school_data;
+        var other_credentials_presented = response.data.otherCredentialsPresented;
+        var eligibility_jhs_enrollment = response.data.eligibilityJHSEnrollment;
+        console.log(response.data);
+
+        if (other_credentials_presented) {
+          this.ocp_exist = true;
+          this.ocp.ALS_A_and_E_passer = other_credentials_presented.ALS_A_and_E_passer;
+          this.ocp.ALS_A_and_E_passerRating = other_credentials_presented.ALS_A_and_E_passerRating;
+          this.ocp.dateExaminationOrAssesment = other_credentials_presented.dateExaminationOrAssesment;
+          this.ocp.nameAddressTestingCenter = other_credentials_presented.nameAddressTestingCenter;
+          this.ocp.others = other_credentials_presented.others;
+          this.ocp.othersSpecify = other_credentials_presented.othersSpecify;
+          this.ocp.peptPasser = other_credentials_presented.peptPasser;
+          this.ocp.peptPasserRating = other_credentials_presented.peptPasserRating;
+          console.log('not empty other_credentials_presented');
+        }
+
+        if (eligibility_jhs_enrollment) {
+          this.eligibility_exist = true;
+          this.eligibility.addressOfSchool = eligibility_jhs_enrollment.addressOfSchool;
+          this.eligibility.citation = eligibility_jhs_enrollment.citation;
+          this.eligibility.elementarySchoolCompleter = eligibility_jhs_enrollment.elementarySchoolCompleter;
+          this.eligibility.generalAverage = eligibility_jhs_enrollment.generalAverage;
+          this.eligibility.nameOfElementarySchool = eligibility_jhs_enrollment.nameOfElementarySchool;
+          this.eligibility.schoolID = eligibility_jhs_enrollment.schoolID;
+          console.log('not empty eligibility_jhs_enrollment');
+        }
+
         this.step1 = false;
         this.step2 = true;
-        this.learners_info_last_name = response.data.lastName;
-        this.learners_info_first_name = response.data.givenName;
-        this.learners_info_name_extension = '';
-        this.learners_info_middle_name = response.data.middleName;
-        this.learners_info_lrn = '';
-        this.learners_info_birthdate = response.data.birthDate;
-        this.learners_info_sex = response.data.gender;
-        this.array1_cert_fullname = response.data.givenName + " " + response.data.middleName + " " + response.data.lastName;
-        this.array1_cert_LRN = '';
-        this.array1_cert_grade = '';
-        this.array1_cert_name_of_school = '';
-        this.array1_cert_school_id = '';
-        this.array1_cert_last_school_year_attended = '';
-        this.array1_cert_date = '';
-        this.array1_cert_principal_name = '';
-        this.array1_cert_affix_school_here = '';
+        this.student_id = person.id;
+        this.learners_info_last_name = person.lastName;
+        this.learners_info_first_name = person.givenName;
+        this.learners_info_middle_name = person.middleName;
+        this.learners_info_lrn = school_data.lRN;
+        this.learners_info_birthdate = person.birthDate;
+        this.learners_info_sex = person.gender;
+        this.learners_info_name_extension = person.name_extension;
       }.bind(this))["catch"](function (error) {
         console.log(response);
       }.bind(this));
@@ -5733,13 +5875,28 @@ __webpack_require__.r(__webpack_exports__);
       this.step1 = true;
     },
     submitForm: function submitForm() {
-      console.log(JSON.stringify($('form').serializeArray())); //   axios.post('/enrollment/store', $('form').serialize()).then(function (response) {
-      //     this.success_message = response.data.message
-      //     this.error_message   = ""
-      //   }.bind(this)).catch(function (error) {
-      //     this.success_message = ""
-      //     this.error_message   = error.response.data.message
-      //   }.bind(this))
+      this.clearErrors();
+      axios.post('/forms/137/store', $('form').serialize()).then(function (response) {
+        console.log(response);
+        this.success_message = response.data.message;
+        this.error_message = "";
+      }.bind(this))["catch"](function (error) {
+        this.success_message = "";
+        this.error_message = error.response.data.message;
+        this.array_of_errors = error.response.data.errors;
+      }.bind(this));
+    },
+    clearErrors: function clearErrors() {
+      this.array_of_errors.date_of_examination = [''];
+      this.array_of_errors.eligibility_address_of_school = [''];
+      this.array_of_errors.eligibility_citation = [''];
+      this.array_of_errors.eligibility_general_average = [''];
+      this.array_of_errors.eligibility_name_of_elementary_school = [''];
+      this.array_of_errors.eligibility_school_id = [''];
+      this.array_of_errors.learners_info_lrn = [''];
+      this.array_of_errors.learners_info_name_extension = [''];
+      this.array_of_errors.learners_info_sex = [''];
+      this.array_of_errors.name_address_of_testing_center = [''];
     }
   }
 });
@@ -6227,8 +6384,8 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     getStudents: function getStudents(id) {
       axios.get('/students/' + id + '/show').then(function (response) {
-        this.person = response.data;
-        console.log(this.person);
+        // console.log(response.data)
+        this.person = response.data.person;
         this.success_message = "Students data retrieved successfully!";
         this.error_message = "";
       }.bind(this))["catch"](function (error) {
@@ -41889,6 +42046,55 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-4" }, [
+            _vm._v("\n            Name Extn. (Jr, I, II)\n            "),
+            _c("input", {
+              staticClass: "form-control",
+              attrs: { name: "pi_name_extension", type: "text" }
+            }),
+            _vm._v(" "),
+            _c(
+              "small",
+              {
+                staticClass: "form-text text-muted",
+                staticStyle: { color: "red !important" }
+              },
+              [
+                _vm._v(
+                  _vm._s(
+                    _vm.array_of_errors.pi_name_extension
+                      ? _vm.array_of_errors.pi_name_extension[0]
+                      : ""
+                  )
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-4" }, [
+            _vm._v("\n          Sex\n          "),
+            _vm._m(7),
+            _vm._v(" "),
+            _c(
+              "small",
+              {
+                staticClass: "form-text text-muted",
+                staticStyle: { color: "red !important" }
+              },
+              [
+                _vm._v(
+                  _vm._s(
+                    _vm.array_of_errors.pi_sex
+                      ? _vm.array_of_errors.pi_sex[0]
+                      : ""
+                  )
+                )
+              ]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-md-4" }, [
             _c("div", { staticClass: "form-group" }, [
               _vm._v("\n            House # / Street / Brgy.\n            "),
               _c("input", {
@@ -41970,7 +42176,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(7),
+        _vm._m(8),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-4" }, [
@@ -42163,7 +42369,7 @@ var render = function() {
         _c("div", { staticClass: "col-md-4" }, [
           _c("div", { staticClass: "form-group" }, [
             _vm._v("\n            A member of 4 P's\n\n            "),
-            _vm._m(8),
+            _vm._m(9),
             _vm._v(" "),
             _c(
               "small",
@@ -42267,7 +42473,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(9),
+        _vm._m(10),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
           _c(
@@ -42296,8 +42502,6 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _vm._m(10),
-          _vm._v(" "),
           _vm._m(11),
           _vm._v(" "),
           _vm._m(12),
@@ -42308,7 +42512,9 @@ var render = function() {
           _vm._v(" "),
           _vm._m(15),
           _vm._v(" "),
-          _vm._m(16)
+          _vm._m(16),
+          _vm._v(" "),
+          _vm._m(17)
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
@@ -42338,8 +42544,6 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _vm._m(17),
-          _vm._v(" "),
           _vm._m(18),
           _vm._v(" "),
           _vm._m(19),
@@ -42349,6 +42553,8 @@ var render = function() {
           _vm._m(21),
           _vm._v(" "),
           _vm._m(22),
+          _vm._v(" "),
+          _vm._m(23),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-2" }, [
             _c("div", { staticClass: "form-group" }, [
@@ -42419,8 +42625,6 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _vm._m(23),
-          _vm._v(" "),
           _vm._m(24),
           _vm._v(" "),
           _vm._m(25),
@@ -42431,15 +42635,17 @@ var render = function() {
           _vm._v(" "),
           _vm._m(28),
           _vm._v(" "),
-          _vm._m(29)
+          _vm._m(29),
+          _vm._v(" "),
+          _vm._m(30)
         ]),
         _vm._v(" "),
-        _vm._m(30),
+        _vm._m(31),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-12" }, [
             _c("div", { staticClass: "form-group" }, [
-              _vm._m(31),
+              _vm._m(32),
               _vm._v(" "),
               _c(
                 "small",
@@ -42522,7 +42728,8 @@ var render = function() {
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-12" }, [
             _c("div", { staticClass: "form-group" }, [
-              _vm._m(32),
+              _vm._v("\n            Stay with parents?\n            "),
+              _vm._m(33),
               _vm._v(" "),
               _c(
                 "small",
@@ -42583,7 +42790,7 @@ var render = function() {
               _vm._v(
                 "\n            Does the student work to support schooling costs?\n            "
               ),
-              _vm._m(33),
+              _vm._m(34),
               _vm._v(" "),
               _c(
                 "small",
@@ -42638,10 +42845,10 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(34),
+        _vm._m(35),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
-          _vm._m(35),
+          _vm._m(36),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-3" }, [
             _c("div", { staticClass: "form-group" }, [
@@ -42739,7 +42946,7 @@ var render = function() {
           _c("div", { staticClass: "col-md-3" }, [
             _c("div", { staticClass: "form-group" }, [
               _vm._v("\n            Is Father alive?\n            "),
-              _vm._m(36),
+              _vm._m(37),
               _vm._v(" "),
               _c(
                 "small",
@@ -42761,7 +42968,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(37),
+        _vm._m(38),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-3" }, [
@@ -42914,11 +43121,11 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _vm._m(38)
+          _vm._m(39)
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
-          _vm._m(39),
+          _vm._m(40),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-3" }, [
             _c("div", { staticClass: "form-group" }, [
@@ -43016,7 +43223,7 @@ var render = function() {
           _c("div", { staticClass: "col-md-3" }, [
             _c("div", { staticClass: "form-group" }, [
               _vm._v("\n            Is Mother alive?\n            "),
-              _vm._m(40),
+              _vm._m(41),
               _vm._v(" "),
               _c(
                 "small",
@@ -43038,7 +43245,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(41),
+        _vm._m(42),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-3" }, [
@@ -43191,7 +43398,7 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _vm._m(42)
+          _vm._m(43)
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
@@ -43254,7 +43461,7 @@ var render = function() {
               _vm._v(
                 "\n            Did brother and sister dropped out of school?\n            "
               ),
-              _vm._m(43),
+              _vm._m(44),
               _vm._v(" "),
               _c(
                 "small",
@@ -43321,7 +43528,7 @@ var render = function() {
               _vm._v(
                 "\n            Are there family members who are affiliated with community organization?\n            "
               ),
-              _vm._m(44),
+              _vm._m(45),
               _vm._v(" "),
               _c(
                 "small",
@@ -43378,7 +43585,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(45),
+        _vm._m(46),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
           _c(
@@ -43405,13 +43612,13 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _vm._m(46),
-          _vm._v(" "),
           _vm._m(47),
           _vm._v(" "),
           _vm._m(48),
           _vm._v(" "),
           _vm._m(49),
+          _vm._v(" "),
+          _vm._m(50),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-6" }, [
             _c("div", { staticClass: "form-group" }, [
@@ -43478,11 +43685,11 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _vm._m(50),
-          _vm._v(" "),
           _vm._m(51),
           _vm._v(" "),
           _vm._m(52),
+          _vm._v(" "),
+          _vm._m(53),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-7" }, [
             _c("div", { staticClass: "form-group" }, [
@@ -43549,13 +43756,13 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _vm._m(53),
-          _vm._v(" "),
           _vm._m(54),
           _vm._v(" "),
           _vm._m(55),
           _vm._v(" "),
           _vm._m(56),
+          _vm._v(" "),
+          _vm._m(57),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-5" }, [
             _c("div", { staticClass: "form-group" }, [
@@ -43622,8 +43829,6 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _vm._m(57),
-          _vm._v(" "),
           _vm._m(58),
           _vm._v(" "),
           _vm._m(59),
@@ -43633,6 +43838,8 @@ var render = function() {
           _vm._m(61),
           _vm._v(" "),
           _vm._m(62),
+          _vm._v(" "),
+          _vm._m(63),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-4" }, [
             _c("div", { staticClass: "form-group" }, [
@@ -43741,11 +43948,11 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(63),
-        _vm._v(" "),
         _vm._m(64),
         _vm._v(" "),
-        _vm._m(65)
+        _vm._m(65),
+        _vm._v(" "),
+        _vm._m(66)
       ]
     )
   ])
@@ -43890,6 +44097,20 @@ var staticRenderFns = [
         ])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "select",
+      { staticClass: "form-control", attrs: { name: "pi_sex" } },
+      [
+        _c("option", { attrs: { value: "male" } }, [_vm._v("Male")]),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "female" } }, [_vm._v("Female")])
+      ]
+    )
   },
   function() {
     var _vm = this
@@ -47973,7 +48194,13 @@ var render = function() {
                         _vm._v(_vm._s(student.id))
                       ]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(student.givenName))]),
+                      _c("td", [
+                        _vm._v(
+                          _vm._s(student.givenName) +
+                            " " +
+                            _vm._s(student.name_extension)
+                        )
+                      ]),
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(student.middleName))]),
                       _vm._v(" "),
@@ -48041,11 +48268,117 @@ var render = function() {
                       attrs: { type: "button" },
                       on: { click: _vm.chooseAnother }
                     },
-                    [_vm._v("Replace student")]
+                    [_vm._v("Change student")]
                   ),
                   _vm._v(" "),
                   _vm._m(2)
                 ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-12" }, [
+                _vm.success_message
+                  ? _c(
+                      "div",
+                      {
+                        staticClass: "alert alert-success",
+                        attrs: { role: "alert" }
+                      },
+                      [
+                        _vm._v(
+                          "\n          " +
+                            _vm._s(_vm.success_message) +
+                            "\n        "
+                        )
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.error_message
+                  ? _c(
+                      "div",
+                      {
+                        staticClass: "alert alert-danger",
+                        attrs: { role: "alert" }
+                      },
+                      [
+                        _vm._v(
+                          "\n          " +
+                            _vm._s(_vm.error_message) +
+                            "\n        "
+                        )
+                      ]
+                    )
+                  : _vm._e()
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-12" }, [
+                _vm._v("\n        Student ID ("),
+                _c("i", [
+                  _vm._v("To edit this info go to "),
+                  _c("a", { attrs: { href: "/students/" + _vm.student_id } }, [
+                    _vm._v(
+                      _vm._s(_vm.learners_info_first_name) +
+                        " " +
+                        _vm._s(_vm.learners_info_name_extension) +
+                        " " +
+                        _vm._s(_vm.learners_info_middle_name) +
+                        " " +
+                        _vm._s(_vm.learners_info_last_name)
+                    )
+                  ])
+                ]),
+                _vm._v(")\n        "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.student_id,
+                      expression: "student_id"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { name: "student_id", type: "hidden" },
+                  domProps: { value: _vm.student_id },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.student_id = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  {
+                    staticClass: "form-control",
+                    attrs: { disabled: "disabled" }
+                  },
+                  [_vm._v("#" + _vm._s(_vm.student_id))]
+                ),
+                _vm._v(" "),
+                _c(
+                  "small",
+                  {
+                    staticClass: "form-text text-muted",
+                    staticStyle: { color: "red !important" }
+                  },
+                  [
+                    _vm._v(
+                      _vm._s(
+                        _vm.array_of_errors.student_id
+                          ? _vm.array_of_errors.student_id[0]
+                          : ""
+                      )
+                    )
+                  ]
+                )
               ])
             ]),
             _vm._v(" "),
@@ -48062,7 +48395,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "form-control",
-                  attrs: { name: "learners_info_last_name", type: "text" },
+                  attrs: { name: "learners_info_last_name", type: "hidden" },
                   domProps: { value: _vm.learners_info_last_name },
                   on: {
                     input: function($event) {
@@ -48072,7 +48405,33 @@ var render = function() {
                       _vm.learners_info_last_name = $event.target.value
                     }
                   }
-                })
+                }),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  {
+                    staticClass: "form-control",
+                    attrs: { disabled: "disabled" }
+                  },
+                  [_vm._v(_vm._s(_vm.learners_info_last_name))]
+                ),
+                _vm._v(" "),
+                _c(
+                  "small",
+                  {
+                    staticClass: "form-text text-muted",
+                    staticStyle: { color: "red !important" }
+                  },
+                  [
+                    _vm._v(
+                      _vm._s(
+                        _vm.array_of_errors.learners_info_last_name
+                          ? _vm.array_of_errors.learners_info_last_name[0]
+                          : ""
+                      )
+                    )
+                  ]
+                )
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-md-4" }, [
@@ -48087,7 +48446,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "form-control",
-                  attrs: { name: "learners_info_first_name", type: "text" },
+                  attrs: { name: "learners_info_first_name", type: "hidden" },
                   domProps: { value: _vm.learners_info_first_name },
                   on: {
                     input: function($event) {
@@ -48097,7 +48456,33 @@ var render = function() {
                       _vm.learners_info_first_name = $event.target.value
                     }
                   }
-                })
+                }),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  {
+                    staticClass: "form-control",
+                    attrs: { disabled: "disabled" }
+                  },
+                  [_vm._v(_vm._s(_vm.learners_info_first_name))]
+                ),
+                _vm._v(" "),
+                _c(
+                  "small",
+                  {
+                    staticClass: "form-text text-muted",
+                    staticStyle: { color: "red !important" }
+                  },
+                  [
+                    _vm._v(
+                      _vm._s(
+                        _vm.array_of_errors.learners_info_first_name
+                          ? _vm.array_of_errors.learners_info_first_name[0]
+                          : ""
+                      )
+                    )
+                  ]
+                )
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-md-2" }, [
@@ -48112,7 +48497,10 @@ var render = function() {
                     }
                   ],
                   staticClass: "form-control",
-                  attrs: { name: "learners_info_name_extension", type: "text" },
+                  attrs: {
+                    name: "learners_info_name_extension",
+                    type: "hidden"
+                  },
                   domProps: { value: _vm.learners_info_name_extension },
                   on: {
                     input: function($event) {
@@ -48122,7 +48510,33 @@ var render = function() {
                       _vm.learners_info_name_extension = $event.target.value
                     }
                   }
-                })
+                }),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  {
+                    staticClass: "form-control",
+                    attrs: { disabled: "disabled" }
+                  },
+                  [_vm._v(_vm._s(_vm.learners_info_name_extension))]
+                ),
+                _vm._v(" "),
+                _c(
+                  "small",
+                  {
+                    staticClass: "form-text text-muted",
+                    staticStyle: { color: "red !important" }
+                  },
+                  [
+                    _vm._v(
+                      _vm._s(
+                        _vm.array_of_errors.learners_info_name_extension
+                          ? _vm.array_of_errors.learners_info_name_extension[0]
+                          : ""
+                      )
+                    )
+                  ]
+                )
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-md-2" }, [
@@ -48137,7 +48551,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "form-control",
-                  attrs: { name: "learners_info_middle_name", type: "text" },
+                  attrs: { name: "learners_info_middle_name", type: "hidden" },
                   domProps: { value: _vm.learners_info_middle_name },
                   on: {
                     input: function($event) {
@@ -48147,7 +48561,33 @@ var render = function() {
                       _vm.learners_info_middle_name = $event.target.value
                     }
                   }
-                })
+                }),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  {
+                    staticClass: "form-control",
+                    attrs: { disabled: "disabled" }
+                  },
+                  [_vm._v(_vm._s(_vm.learners_info_middle_name))]
+                ),
+                _vm._v(" "),
+                _c(
+                  "small",
+                  {
+                    staticClass: "form-text text-muted",
+                    staticStyle: { color: "red !important" }
+                  },
+                  [
+                    _vm._v(
+                      _vm._s(
+                        _vm.array_of_errors.learners_info_middle_name
+                          ? _vm.array_of_errors.learners_info_middle_name[0]
+                          : ""
+                      )
+                    )
+                  ]
+                )
               ])
             ]),
             _vm._v(" "),
@@ -48164,7 +48604,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "form-control",
-                  attrs: { name: "learners_info_lrn", type: "text" },
+                  attrs: { name: "learners_info_lrn", type: "hidden" },
                   domProps: { value: _vm.learners_info_lrn },
                   on: {
                     input: function($event) {
@@ -48174,7 +48614,33 @@ var render = function() {
                       _vm.learners_info_lrn = $event.target.value
                     }
                   }
-                })
+                }),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  {
+                    staticClass: "form-control",
+                    attrs: { disabled: "disabled" }
+                  },
+                  [_vm._v(_vm._s(_vm.learners_info_lrn))]
+                ),
+                _vm._v(" "),
+                _c(
+                  "small",
+                  {
+                    staticClass: "form-text text-muted",
+                    staticStyle: { color: "red !important" }
+                  },
+                  [
+                    _vm._v(
+                      _vm._s(
+                        _vm.array_of_errors.learners_info_lrn
+                          ? _vm.array_of_errors.learners_info_lrn[0]
+                          : ""
+                      )
+                    )
+                  ]
+                )
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-md-4" }, [
@@ -48191,7 +48657,7 @@ var render = function() {
                   staticClass: "form-control",
                   attrs: {
                     name: "learners_info_birthdate",
-                    type: "date",
+                    type: "hidden",
                     placeholder: "(mm/dd/yyyy)"
                   },
                   domProps: { value: _vm.learners_info_birthdate },
@@ -48203,70 +48669,123 @@ var render = function() {
                       _vm.learners_info_birthdate = $event.target.value
                     }
                   }
-                })
+                }),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  {
+                    staticClass: "form-control",
+                    attrs: { disabled: "disabled" }
+                  },
+                  [_vm._v(_vm._s(_vm.learners_info_birthdate))]
+                ),
+                _vm._v(" "),
+                _c(
+                  "small",
+                  {
+                    staticClass: "form-text text-muted",
+                    staticStyle: { color: "red !important" }
+                  },
+                  [
+                    _vm._v(
+                      _vm._s(
+                        _vm.array_of_errors.learners_info_birthdate
+                          ? _vm.array_of_errors.learners_info_birthdate[0]
+                          : ""
+                      )
+                    )
+                  ]
+                )
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-md-4" }, [
                 _vm._v("\n        Sex\n        "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.learners_info_sex,
-                      expression: "learners_info_sex"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: {
-                    name: "learners_info_sex",
-                    type: "text",
-                    placeholder: "Male / Female"
+                _c(
+                  "p",
+                  {
+                    staticClass: "form-control",
+                    attrs: { disabled: "disabled" }
                   },
-                  domProps: { value: _vm.learners_info_sex },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.learners_info_sex = $event.target.value
-                    }
-                  }
-                })
+                  [_vm._v(_vm._s(_vm.learners_info_sex))]
+                ),
+                _vm._v(" "),
+                _c(
+                  "small",
+                  {
+                    staticClass: "form-text text-muted",
+                    staticStyle: { color: "red !important" }
+                  },
+                  [
+                    _vm._v(
+                      _vm._s(
+                        _vm.array_of_errors.learners_info_sex
+                          ? _vm.array_of_errors.learners_info_sex[0]
+                          : ""
+                      )
+                    )
+                  ]
+                )
               ])
             ]),
             _vm._v(" "),
             _c("br"),
             _vm._v(" "),
+            _c(
+              "div",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.eligibility_exist || _vm.ocp_exist,
+                    expression: "eligibility_exist || ocp_exist"
+                  }
+                ],
+                staticClass: "row"
+              },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass: "col-md-12",
+                    staticStyle: { "text-align": "center" }
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "alert alert-info",
+                        attrs: { role: "alert" }
+                      },
+                      [
+                        _vm._v("\n          We have detected that "),
+                        _c(
+                          "a",
+                          {
+                            staticStyle: { color: "white" },
+                            attrs: { href: "/students/" + _vm.student_id }
+                          },
+                          [
+                            _vm._v(
+                              _vm._s(_vm.learners_info_first_name) +
+                                " " +
+                                _vm._s(_vm.learners_info_name_extension) +
+                                " " +
+                                _vm._s(_vm.learners_info_middle_name) +
+                                " " +
+                                _vm._s(_vm.learners_info_last_name)
+                            )
+                          ]
+                        ),
+                        _vm._v(" has already an existing 137 form.\n        ")
+                      ]
+                    )
+                  ]
+                )
+              ]
+            ),
+            _vm._v(" "),
             _vm._m(3),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _vm._m(4),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _vm._m(5),
-            _vm._v(" "),
-            _vm._m(6),
-            _vm._v(" "),
-            _vm._m(7),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _vm._m(8),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _vm._m(9),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _vm._m(10),
-            _vm._v(" "),
-            _c("br"),
             _vm._v(" "),
             _c("br"),
             _vm._v(" "),
@@ -48280,7 +48799,805 @@ var render = function() {
                 }
               },
               [
-                _vm._m(11),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-4" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.eligibility.elementarySchoolCompleter,
+                          expression: "eligibility.elementarySchoolCompleter"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        name: "eligibility_elementary_school_completer",
+                        type: "checkbox"
+                      },
+                      domProps: {
+                        checked: Array.isArray(
+                          _vm.eligibility.elementarySchoolCompleter
+                        )
+                          ? _vm._i(
+                              _vm.eligibility.elementarySchoolCompleter,
+                              null
+                            ) > -1
+                          : _vm.eligibility.elementarySchoolCompleter
+                      },
+                      on: {
+                        change: function($event) {
+                          var $$a = _vm.eligibility.elementarySchoolCompleter,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = null,
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 &&
+                                _vm.$set(
+                                  _vm.eligibility,
+                                  "elementarySchoolCompleter",
+                                  $$a.concat([$$v])
+                                )
+                            } else {
+                              $$i > -1 &&
+                                _vm.$set(
+                                  _vm.eligibility,
+                                  "elementarySchoolCompleter",
+                                  $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                )
+                            }
+                          } else {
+                            _vm.$set(
+                              _vm.eligibility,
+                              "elementarySchoolCompleter",
+                              $$c
+                            )
+                          }
+                        }
+                      }
+                    }),
+                    _vm._v(
+                      " \n          Elementary School Completer \n          "
+                    ),
+                    _c(
+                      "small",
+                      {
+                        staticClass: "form-text text-muted",
+                        staticStyle: { color: "red !important" }
+                      },
+                      [
+                        _vm._v(
+                          _vm._s(
+                            _vm.array_of_errors
+                              .eligibility_elementary_school_completer
+                              ? _vm.array_of_errors
+                                  .eligibility_elementary_school_completer[0]
+                              : ""
+                          )
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-4" }, [
+                    _vm._v("\n          General Average: \n          "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.eligibility.generalAverage,
+                          expression: "eligibility.generalAverage"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        name: "eligibility_general_average",
+                        type: "text",
+                        placeholder: ""
+                      },
+                      domProps: { value: _vm.eligibility.generalAverage },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.eligibility,
+                            "generalAverage",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "small",
+                      {
+                        staticClass: "form-text text-muted",
+                        staticStyle: { color: "red !important" }
+                      },
+                      [
+                        _vm._v(
+                          _vm._s(
+                            _vm.array_of_errors.eligibility_general_average
+                              ? _vm.array_of_errors
+                                  .eligibility_general_average[0]
+                              : ""
+                          )
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-4" }, [
+                    _vm._v("\n          Citation: \n          "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.eligibility.citation,
+                          expression: "eligibility.citation"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        name: "eligibility_citation",
+                        type: "text",
+                        placeholder: "(If any)"
+                      },
+                      domProps: { value: _vm.eligibility.citation },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.eligibility,
+                            "citation",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "small",
+                      {
+                        staticClass: "form-text text-muted",
+                        staticStyle: { color: "red !important" }
+                      },
+                      [
+                        _vm._v(
+                          _vm._s(
+                            _vm.array_of_errors.eligibility_citation
+                              ? _vm.array_of_errors.eligibility_citation[0]
+                              : ""
+                          )
+                        )
+                      ]
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-4" }, [
+                    _vm._v(
+                      "\n          Name of Elementary School:\n          "
+                    ),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.eligibility.nameOfElementarySchool,
+                          expression: "eligibility.nameOfElementarySchool"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        name: "eligibility_name_of_elementary_school",
+                        type: "text"
+                      },
+                      domProps: {
+                        value: _vm.eligibility.nameOfElementarySchool
+                      },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.eligibility,
+                            "nameOfElementarySchool",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "small",
+                      {
+                        staticClass: "form-text text-muted",
+                        staticStyle: { color: "red !important" }
+                      },
+                      [
+                        _vm._v(
+                          _vm._s(
+                            _vm.array_of_errors
+                              .eligibility_name_of_elementary_school
+                              ? _vm.array_of_errors
+                                  .eligibility_name_of_elementary_school[0]
+                              : ""
+                          )
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-4" }, [
+                    _vm._v("\n          School ID:\n          "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.eligibility.schoolID,
+                          expression: "eligibility.schoolID"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        name: "eligibility_school_id",
+                        type: "text",
+                        placeholder: ""
+                      },
+                      domProps: { value: _vm.eligibility.schoolID },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.eligibility,
+                            "schoolID",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "small",
+                      {
+                        staticClass: "form-text text-muted",
+                        staticStyle: { color: "red !important" }
+                      },
+                      [
+                        _vm._v(
+                          _vm._s(
+                            _vm.array_of_errors.eligibility_school_id
+                              ? _vm.array_of_errors.eligibility_school_id[0]
+                              : ""
+                          )
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-4" }, [
+                    _vm._v("\n          Address of School:\n          "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.eligibility.addressOfSchool,
+                          expression: "eligibility.addressOfSchool"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        name: "eligibility_address_of_school",
+                        type: "text",
+                        placeholder: ""
+                      },
+                      domProps: { value: _vm.eligibility.addressOfSchool },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.eligibility,
+                            "addressOfSchool",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "small",
+                      {
+                        staticClass: "form-text text-muted",
+                        staticStyle: { color: "red !important" }
+                      },
+                      [
+                        _vm._v(
+                          _vm._s(
+                            _vm.array_of_errors.eligibility_address_of_school
+                              ? _vm.array_of_errors
+                                  .eligibility_address_of_school[0]
+                              : ""
+                          )
+                        )
+                      ]
+                    )
+                  ])
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _vm._m(4),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-2" }, [
+                _vm._v("\n        PEPT Passer\n        "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.ocp.ALS_A_and_E_passer,
+                      expression: "ocp.ALS_A_and_E_passer"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { name: "other_creds_pept_passer", type: "checkbox" },
+                  domProps: {
+                    checked: Array.isArray(_vm.ocp.ALS_A_and_E_passer)
+                      ? _vm._i(_vm.ocp.ALS_A_and_E_passer, null) > -1
+                      : _vm.ocp.ALS_A_and_E_passer
+                  },
+                  on: {
+                    change: function($event) {
+                      var $$a = _vm.ocp.ALS_A_and_E_passer,
+                        $$el = $event.target,
+                        $$c = $$el.checked ? true : false
+                      if (Array.isArray($$a)) {
+                        var $$v = null,
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 &&
+                            _vm.$set(
+                              _vm.ocp,
+                              "ALS_A_and_E_passer",
+                              $$a.concat([$$v])
+                            )
+                        } else {
+                          $$i > -1 &&
+                            _vm.$set(
+                              _vm.ocp,
+                              "ALS_A_and_E_passer",
+                              $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                            )
+                        }
+                      } else {
+                        _vm.$set(_vm.ocp, "ALS_A_and_E_passer", $$c)
+                      }
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "small",
+                  {
+                    staticClass: "form-text text-muted",
+                    staticStyle: { color: "red !important" }
+                  },
+                  [
+                    _vm._v(
+                      _vm._s(
+                        _vm.array_of_errors.other_creds_pept_passer
+                          ? _vm.array_of_errors.other_creds_pept_passer[0]
+                          : ""
+                      )
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-2" }, [
+                _vm._v("\n        Rating:\n      "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.ocp.ALS_A_and_E_passerRating,
+                      expression: "ocp.ALS_A_and_E_passerRating"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    name: "other_creds_pept_passer_rating",
+                    type: "text",
+                    placeholder: ""
+                  },
+                  domProps: { value: _vm.ocp.ALS_A_and_E_passerRating },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.ocp,
+                        "ALS_A_and_E_passerRating",
+                        $event.target.value
+                      )
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "small",
+                  {
+                    staticClass: "form-text text-muted",
+                    staticStyle: { color: "red !important" }
+                  },
+                  [
+                    _vm._v(
+                      _vm._s(
+                        _vm.array_of_errors.other_creds_pept_passer_rating
+                          ? _vm.array_of_errors
+                              .other_creds_pept_passer_rating[0]
+                          : ""
+                      )
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-2" }, [
+                _vm._v("\n        ALS A & E Passer\n        "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.ocp.peptPasser,
+                      expression: "ocp.peptPasser"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    name: "other_creds_als_a_and_e_passer",
+                    type: "checkbox"
+                  },
+                  domProps: {
+                    checked: Array.isArray(_vm.ocp.peptPasser)
+                      ? _vm._i(_vm.ocp.peptPasser, null) > -1
+                      : _vm.ocp.peptPasser
+                  },
+                  on: {
+                    change: function($event) {
+                      var $$a = _vm.ocp.peptPasser,
+                        $$el = $event.target,
+                        $$c = $$el.checked ? true : false
+                      if (Array.isArray($$a)) {
+                        var $$v = null,
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 &&
+                            _vm.$set(_vm.ocp, "peptPasser", $$a.concat([$$v]))
+                        } else {
+                          $$i > -1 &&
+                            _vm.$set(
+                              _vm.ocp,
+                              "peptPasser",
+                              $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                            )
+                        }
+                      } else {
+                        _vm.$set(_vm.ocp, "peptPasser", $$c)
+                      }
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "small",
+                  {
+                    staticClass: "form-text text-muted",
+                    staticStyle: { color: "red !important" }
+                  },
+                  [
+                    _vm._v(
+                      _vm._s(
+                        _vm.array_of_errors.other_creds_als_a_and_e_passer
+                          ? _vm.array_of_errors
+                              .other_creds_als_a_and_e_passer[0]
+                          : ""
+                      )
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-2" }, [
+                _vm._v("\n        Rating:\n        "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.ocp.peptPasserRating,
+                      expression: "ocp.peptPasserRating"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    name: "other_creds_als_a_and_e_passer_rating",
+                    type: "text",
+                    placeholder: ""
+                  },
+                  domProps: { value: _vm.ocp.peptPasserRating },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.ocp, "peptPasserRating", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "small",
+                  {
+                    staticClass: "form-text text-muted",
+                    staticStyle: { color: "red !important" }
+                  },
+                  [
+                    _vm._v(
+                      _vm._s(
+                        _vm.array_of_errors
+                          .other_creds_als_a_and_e_passer_rating
+                          ? _vm.array_of_errors
+                              .other_creds_als_a_and_e_passer_rating[0]
+                          : ""
+                      )
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-4" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.ocp.others,
+                      expression: "ocp.others"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { name: "other_creds_others", type: "checkbox" },
+                  domProps: {
+                    checked: Array.isArray(_vm.ocp.others)
+                      ? _vm._i(_vm.ocp.others, null) > -1
+                      : _vm.ocp.others
+                  },
+                  on: {
+                    change: function($event) {
+                      var $$a = _vm.ocp.others,
+                        $$el = $event.target,
+                        $$c = $$el.checked ? true : false
+                      if (Array.isArray($$a)) {
+                        var $$v = null,
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 &&
+                            _vm.$set(_vm.ocp, "others", $$a.concat([$$v]))
+                        } else {
+                          $$i > -1 &&
+                            _vm.$set(
+                              _vm.ocp,
+                              "others",
+                              $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                            )
+                        }
+                      } else {
+                        _vm.$set(_vm.ocp, "others", $$c)
+                      }
+                    }
+                  }
+                }),
+                _vm._v(" \n        Others (Pls. Specify)\n        "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.ocp.othersSpecify,
+                      expression: "ocp.othersSpecify"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { name: "other_creds_others_specify", type: "text" },
+                  domProps: { value: _vm.ocp.othersSpecify },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.ocp, "othersSpecify", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "small",
+                  {
+                    staticClass: "form-text text-muted",
+                    staticStyle: { color: "red !important" }
+                  },
+                  [
+                    _vm._v(
+                      _vm._s(
+                        _vm.array_of_errors.other_creds_others_specify
+                          ? _vm.array_of_errors.other_creds_others_specify[0]
+                          : ""
+                      )
+                    )
+                  ]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-6" }, [
+                _vm._v("\n        Date of Examination/Assesment:\n        "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.ocp.dateExaminationOrAssesment,
+                      expression: "ocp.dateExaminationOrAssesment"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    name: "date_of_examination",
+                    type: "date",
+                    placeholder: "(mm/dd/yyyy)"
+                  },
+                  domProps: { value: _vm.ocp.dateExaminationOrAssesment },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.ocp,
+                        "dateExaminationOrAssesment",
+                        $event.target.value
+                      )
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "small",
+                  {
+                    staticClass: "form-text text-muted",
+                    staticStyle: { color: "red !important" }
+                  },
+                  [
+                    _vm._v(
+                      _vm._s(
+                        _vm.array_of_errors.date_of_examination
+                          ? _vm.array_of_errors.date_of_examination[0]
+                          : ""
+                      )
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-6" }, [
+                _vm._v(
+                  "\n        Name and address of Testing Center:\n        "
+                ),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.ocp.nameAddressTestingCenter,
+                      expression: "ocp.nameAddressTestingCenter"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    name: "name_address_of_testing_center",
+                    type: "text",
+                    placeholder: ""
+                  },
+                  domProps: { value: _vm.ocp.nameAddressTestingCenter },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.ocp,
+                        "nameAddressTestingCenter",
+                        $event.target.value
+                      )
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "small",
+                  {
+                    staticClass: "form-text text-muted",
+                    staticStyle: { color: "red !important" }
+                  },
+                  [
+                    _vm._v(
+                      _vm._s(
+                        _vm.array_of_errors.name_address_of_testing_center
+                          ? _vm.array_of_errors
+                              .name_address_of_testing_center[0]
+                          : ""
+                      )
+                    )
+                  ]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _vm._m(5),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _vm._m(6),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _vm._m(7),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticStyle: {
+                  display: "none",
+                  "border-style": "solid",
+                  "border-width": "1px",
+                  padding: "10px 10px"
+                }
+              },
+              [
+                _vm._m(8),
                 _vm._v(" "),
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-md-4" }, [
@@ -48543,29 +49860,67 @@ var render = function() {
             _vm._v(" "),
             _c("br"),
             _vm._v(" "),
+            _vm._m(9),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _vm._m(10),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _vm._m(11),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
             _vm._m(12),
             _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c("br"),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-12" }, [
+                _vm.success_message
+                  ? _c(
+                      "div",
+                      {
+                        staticClass: "alert alert-success",
+                        attrs: { role: "alert" }
+                      },
+                      [
+                        _vm._v(
+                          "\n          " +
+                            _vm._s(_vm.success_message) +
+                            "\n        "
+                        )
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.error_message
+                  ? _c(
+                      "div",
+                      {
+                        staticClass: "alert alert-danger",
+                        attrs: { role: "alert" }
+                      },
+                      [
+                        _vm._v(
+                          "\n          " +
+                            _vm._s(_vm.error_message) +
+                            "\n        "
+                        )
+                      ]
+                    )
+                  : _vm._e()
+              ])
+            ]),
             _vm._v(" "),
             _vm._m(13),
             _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _vm._m(14),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _vm._m(15),
-            _vm._v(" "),
-            _vm._m(16),
-            _vm._v(" "),
-            _vm._m(17)
+            _vm._m(14)
           ]
         )
       : _vm._e()
@@ -48659,96 +50014,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticStyle: {
-          "border-style": "solid",
-          "border-width": "1px",
-          padding: "10px 10px"
-        }
-      },
-      [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-4" }, [
-            _c("input", {
-              staticClass: "form-control",
-              attrs: {
-                name: "eligibility_elementary_school_completer",
-                type: "checkbox"
-              }
-            }),
-            _vm._v(" \n          Elementary School Completer \n        ")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-4" }, [
-            _vm._v("\n          General Average: \n          "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: {
-                name: "eligibility_general_average",
-                type: "text",
-                placeholder: ""
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-4" }, [
-            _vm._v("\n          Citation: \n          "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: {
-                name: "eligibility_citation",
-                type: "text",
-                placeholder: "(If any)"
-              }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-4" }, [
-            _vm._v("\n          Name of Elementary School:\n          "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: {
-                name: "eligibility_name_of_elementary_school",
-                type: "text"
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-4" }, [
-            _vm._v("\n          School ID:\n          "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: {
-                name: "eligibility_school_id",
-                type: "text",
-                placeholder: ""
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-4" }, [
-            _vm._v("\n          Address of School:\n          "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: {
-                name: "eligibility_school_address_of_school",
-                type: "text",
-                placeholder: ""
-              }
-            })
-          ])
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-12" }, [
         _vm._v("\n        Other credentials presented\n      ")
@@ -48759,87 +50024,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-2" }, [
-        _vm._v("\n        PEPT Passer\n        "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: { name: "school_enrolled", type: "checkbox" }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-2" }, [
-        _vm._v("\n        Rating:\n        "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: { name: "school_enrolled", type: "text", placeholder: "" }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-2" }, [
-        _vm._v("\n        ALS A & E Passer\n        "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: { name: "school_enrolled", type: "checkbox" }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-2" }, [
-        _vm._v("\n        Rating:\n        "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: { name: "school_enrolled", type: "text", placeholder: "" }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-4" }, [
-        _c("input", {
-          staticClass: "form-control",
-          attrs: { name: "school_enrolled", type: "checkbox" }
-        }),
-        _vm._v(" \n        Others (Pls. Specify)\n        "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: { name: "school_enrolled_others", type: "text" }
-        })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-6" }, [
-        _vm._v("\n        Date of Examination/Assesment:\n        "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: {
-            name: "date_of_examination",
-            type: "date",
-            placeholder: "(mm/dd/yyyy)"
-          }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
-        _vm._v("\n        Name and address of Testing Center:\n        "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: {
-            name: "name_address_of_testing_center",
-            type: "text",
-            placeholder: ""
-          }
-        })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
+    return _c("div", { staticClass: "row", staticStyle: { display: "none" } }, [
       _c(
         "div",
         { staticClass: "col-md-12", staticStyle: { "text-align": "center" } },
@@ -48859,6 +50044,7 @@ var staticRenderFns = [
       "div",
       {
         staticStyle: {
+          display: "none",
           "border-style": "solid",
           "border-width": "1px",
           padding: "10px 10px"
@@ -50038,6 +51224,7 @@ var staticRenderFns = [
       "div",
       {
         staticStyle: {
+          display: "none",
           "border-style": "solid",
           "border-width": "1px",
           padding: "10px 10px"
@@ -51233,6 +52420,7 @@ var staticRenderFns = [
       "div",
       {
         staticStyle: {
+          display: "none",
           "border-style": "solid",
           "border-width": "1px",
           padding: "10px 10px"
@@ -52412,6 +53600,7 @@ var staticRenderFns = [
       "div",
       {
         staticStyle: {
+          display: "none",
           "border-style": "solid",
           "border-width": "1px",
           padding: "10px 10px"
@@ -53591,6 +54780,7 @@ var staticRenderFns = [
       "div",
       {
         staticStyle: {
+          display: "none",
           "border-style": "solid",
           "border-width": "1px",
           padding: "10px 10px"
@@ -54770,6 +55960,7 @@ var staticRenderFns = [
       "div",
       {
         staticStyle: {
+          display: "none",
           "border-style": "solid",
           "border-width": "1px",
           padding: "10px 10px"
@@ -54973,6 +56164,8 @@ var render = function() {
                             _vm._s(student.middleName) +
                             " " +
                             _vm._s(student.givenName) +
+                            " " +
+                            _vm._s(student.name_extension) +
                             "\n                  "
                         )
                       ]),
@@ -55117,6 +56310,8 @@ var render = function() {
                 _c("h5", { staticClass: "title" }, [
                   _vm._v(
                     _vm._s(_vm.person.givenName) +
+                      " " +
+                      _vm._s(_vm.person.name_extension) +
                       " " +
                       _vm._s(_vm.person.middleName) +
                       " " +

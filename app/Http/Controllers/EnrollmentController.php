@@ -77,6 +77,8 @@ class EnrollmentController extends Controller
             'pi_enrolled_as_grade'       => 'required',
             'pi_school_last_attended'    => 'required',
             'pi_school_year'             => 'required',
+            'pi_name_extension'          => '',
+            'pi_sex'                     => 'required|in:male,female',
 
             // Education situation
             'es_travel_time'             => 'required',
@@ -151,9 +153,12 @@ class EnrollmentController extends Controller
             $o->givenName      = $request->input('pi_given_name');
             $o->middleName     = $request->input('pi_middle_name');
             $o->birthDate      = $request->input('pi_birthdate');
+            $o->name_extension = $request->input('pi_name_extension');
+            $o->gender         = $request->input('pi_sex');
             $o->address        = $addres_1.' '.$addres_2.' '.$addres_3;
             $o->enrollmentDate = $request->input('pi_enrollment_date');
             $o->save();
+
 
             $o = new StudentsGuardian;
             $o->id                   = $request->input('pi_student_id');
@@ -193,10 +198,10 @@ class EnrollmentController extends Controller
 
             $o = new PersonsSchooledData;
             $o->id               = $request->input('pi_student_id');
-            $o->StudentStatus    = $request->input('school_enrolled_student_status');
-            $o->SchooledEnrolled = $request->input('school_enrolled');
-            $o->SchoolDate       = $request->input('school_enrolled_date');
-            $o->LRN              = $request->input('school_enrolled_lrn');
+            $o->studentStatus    = $request->input('school_enrolled_student_status');
+            $o->schooledEnrolled = $request->input('school_enrolled');
+            $o->schoolDate       = $request->input('school_enrolled_date');
+            $o->lrn              = $request->input('school_enrolled_lrn');
             $o->save();
 
             $fathers_family_name = $request->input('fhs_fathers_family_name');

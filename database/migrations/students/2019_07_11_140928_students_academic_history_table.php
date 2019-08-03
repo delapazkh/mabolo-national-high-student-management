@@ -16,7 +16,7 @@ class StudentsAcademicHistoryTable extends Migration
         Schema::create('students_academic_history', function (Blueprint $table) {
             $table->integer('id')->primary();
             $table->float('previousGrade')->nullable(false);
-            $table->string('lastSchoolAttended', 20)->nullable(false);
+            $table->string('lastSchoolAttended', 255)->nullable(false);
             $table->string('schoolYear', 12)->nullable(false);
             $table->timestamps();
 

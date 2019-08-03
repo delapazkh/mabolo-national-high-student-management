@@ -15,7 +15,7 @@ class StudentsGuardianTable extends Migration
     {
         Schema::create('students_gaurdian', function (Blueprint $table) {
             $table->integer('id')->primay();
-            $table->string('occupation', 30);
+            $table->string('occupation', 255);
             $table->string('phoneNumber', 15);
             $table->string('lastName', 30);
             $table->string('givenName', 20);

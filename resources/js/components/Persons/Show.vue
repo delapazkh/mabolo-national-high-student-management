@@ -86,7 +86,7 @@
                     <div class="author">
                          <a href="#">
                         <img class="avatar border-gray" src="/img/mike.jpg" alt="...">
-                            <h5 class="title">{{person.givenName}} {{person.middleName}} {{person.lastName}}</h5>
+                            <h5 class="title">{{person.givenName}} {{person.name_extension}} {{person.middleName}} {{person.lastName}}</h5>
                         </a>
                         <p class="description">
                             ID #{{person.id}}
@@ -377,8 +377,8 @@ export default {
     methods: {
       getStudents(id){
         axios.get('/students/'+id+'/show').then(function (response) {
-          this.person = response.data
-          console.log(this.person)
+          // console.log(response.data)
+          this.person = response.data.person
           this.success_message = "Students data retrieved successfully!"
           this.error_message   = ""
         }.bind(this)).catch(function (error) {

@@ -22,8 +22,10 @@ class PersonsTable extends Migration
             $table->date('birthDate')->nullable(false);
             $table->string('civilStatus', 10)->nullable(true);
             $table->string('gender', 10)->nullable(true);
+            $table->string('name_extension', 35)->nullable(true);
+            $table->string('lrn', 35)->nullable(true);
             $table->string('bloodGroup', 3)->nullable(true);
-            $table->string('religion', 15)->nullable(true);
+            $table->string('religion', 255)->nullable(true);
             $table->string('address', 255)->nullable(true);
             $table->date('enrollmentDate')->useCurrent();
             $table->timestamps();

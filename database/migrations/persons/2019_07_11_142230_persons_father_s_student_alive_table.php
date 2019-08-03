@@ -26,8 +26,8 @@ class PersonsFatherSStudentAliveTable extends Migration
             $table->string('deathStatus', 5)->nullable(false)->default('false');
             $table->string('age', 25)->nullable(true);
             $table->date('fatherDOB')->nullable(true);
-            $table->string('religion', 15)->nullable(true);
-            $table->string('occupation', 20)->nullable(true);
+            $table->string('religion', 255)->nullable(true);
+            $table->string('occupation', 255)->nullable(true);
             $table->decimal('monthlyIncome', 15,2)->nullable(true);
             $table->string('educationLevel', 35)->nullable(true);
             $table->string('skills', 10)->nullable(true);

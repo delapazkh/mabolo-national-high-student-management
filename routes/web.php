@@ -28,6 +28,7 @@ Route::get ('/forms', 'FormsController@index')->name('forms-index'); // HTML vie
 	
 	// 137 Form Module
 	Route::get ('/forms/137', 'OneThreeSevenController@index')->name('onethreeseven-index'); // HTML view
+	Route::post('/forms/137/store', 'OneThreeSevenController@store')->name('onethreeseven-store-api'); // API view
 
 	// Enrollment Form Module
 	Route::get ('/forms/enrollment/create', 'EnrollmentController@create')->name('enrollment-create'); // HTML view

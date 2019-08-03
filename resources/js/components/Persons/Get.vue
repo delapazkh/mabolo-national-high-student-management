@@ -34,7 +34,7 @@
                       #{{student.id}}
                     </td>
                     <td>
-                      {{student.lastName}}, {{student.middleName}} {{student.givenName}}
+                      {{student.lastName}}, {{student.middleName}} {{student.givenName}} {{student.name_extension}}
                     </td>
                     <td class="text-right">
                       {{student.enrollmentDate}}

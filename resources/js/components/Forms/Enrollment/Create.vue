@@ -139,6 +139,21 @@
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col-md-4">
+            Name Extn. (Jr, I, II)
+            <input name="pi_name_extension" type="text" class="form-control">
+        <small class="form-text text-muted" style="color:red !important">{{ (array_of_errors.pi_name_extension) ? array_of_errors.pi_name_extension[0]: '' }}</small>
+        </div>
+        <div class="col-md-4">
+          Sex
+          <select name="pi_sex" class="form-control">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+          <small class="form-text text-muted" style="color:red !important">{{ (array_of_errors.pi_sex) ? array_of_errors.pi_sex[0]: '' }}</small>
+        </div>
+      </div>
 
       <div class="row">
         <div class="col-md-4">
@@ -448,6 +463,7 @@
       <div class="row">
         <div class="col-md-12">
           <div class="form-group">
+            Stay with parents?
             <select name="es_stay_with_parents" class="form-control">
               <option value="No">No</option>
               <option value="Yes">Yes</option>
@@ -1046,6 +1062,8 @@ export default {
           iad_objects_at_home: [],
           iad_source_of_water: [],
           iad_toilet_type: [],
+          pi_name_extension: [],
+          pi_sex: [],
           pi_birthdate: [],
           pi_direction_one: [],
           pi_direction_three: [],
@@ -1133,6 +1151,8 @@ export default {
           iad_objects_at_home: [''],
           iad_source_of_water: [''],
           iad_toilet_type: [''],
+          pi_name_extension: [''],
+          pi_sex: [''],
           pi_birthdate: [''],
           pi_direction_one: [''],
           pi_direction_three: [''],

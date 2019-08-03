@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Persons\Persons;
+use App\Models\Persons\PersonsSchooledData;
+use App\Models\Students\StudentsOtherCredentialsPresented;
+use App\Models\Students\StudentsEligibilityJHSEnrollment;
 use Illuminate\Http\Request;
 
 class PersonsController extends Controller
@@ -72,7 +75,18 @@ class PersonsController extends Controller
     public function showAPI($id)
     {
         $person = Persons::find($id);
-        return response($person, 200)
+        $personsSchooledData = PersonsSchooledData::find($person->id);
+        $studentsOtherCredentialsPresented = StudentsOtherCredentialsPresented::find($person->id);
+        $studentsEligibilityJHSEnrollment = StudentsEligibilityJHSEnrollment::find($person->id);
+
+        $data = [
+            'person'                    => $person, 
+            'school_data'               => $personsSchooledData,
+            'otherCredentialsPresented' => $studentsOtherCredentialsPresented,
+            'eligibilityJHSEnrollment'  => $studentsEligibilityJHSEnrollment
+        ];
+
+        return response($data, 200)
                   ->header('Content-Type', 'application/json');
     }
 
@@ -107,6 +121,6 @@ class PersonsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // we dont use this
     }
 }

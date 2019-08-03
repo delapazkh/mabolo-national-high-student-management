@@ -59,7 +59,9 @@
 
 </head>
 <body>
+  <div id="app">
     @yield('content')
+  </div>
 
 <!--   Core JS Files   -->
 <script src="js/core/jquery.min.js"></script>

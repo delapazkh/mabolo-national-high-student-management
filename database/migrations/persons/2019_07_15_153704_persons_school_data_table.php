@@ -19,10 +19,10 @@ class PersonsSchoolDataTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
-            $table->string('SchooledEnrolled', 60);
-            $table->date('SchoolDate');
-            $table->string('LRN', 60);
-            $table->string('StudentStatus', 15);
+            $table->string('schooledEnrolled', 255)->nullable(true);
+            $table->date('schoolDate')->nullable(true);
+            $table->string('lRN', 255)->nullable(true);
+            $table->string('studentStatus', 255)->nullable(true);
             $table->timestamps();
         });
     }

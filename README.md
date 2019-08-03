@@ -26,3 +26,32 @@
 
 ## For re-setting with existing database  
 1. `php artisan migrate:fresh --path=database/migrations/2019_07_15_151545_roles_table.php && php artisan migrate && php artisan migrate --path=database/migrations/persons && php artisan migrate --path=database/migrations/students && php artisan db:seed`  
+
+
+# Admin UI  
+## Login    
+
+<img src="github_previews/login.png" width="100%">   
+
+## Register  
+
+<img src="github_previews/register.png" width="100%">   
+
+## Enrollment Form  
+
+<img src="github_previews/enrollment.png" width="100%">   
+
+## 137 Form  
+
+<img src="github_previews/137 choose.png" width="100%">   
+
+## 137 Form  
+
+<img src="github_previews/137 form.png" width="100%">   
+
+
+# Notes:  
+php artisan make:migration students_eligibility_for_jhs_enrollment --path=database/migrations/students  
+php artisan make:migration persons --path=database/migrations/persons  
+php artisan make:model Models/Students/StudentsEligibilityJHSEnrollment  
+php artisan make:model Models/Students/StudentsOtherCredentialsPresented  

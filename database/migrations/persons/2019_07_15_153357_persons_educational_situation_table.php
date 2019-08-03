@@ -19,7 +19,7 @@ class PersonsEducationalSituationTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
                 
-            $table->string('travelTime', 10);
+            $table->string('travelTime', 30);
             $table->string('transportation', 15);
             $table->string('homeworkSupport', 100);
 
